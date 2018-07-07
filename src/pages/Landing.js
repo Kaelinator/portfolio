@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import SocialMediaBar from 'react-social-media-bar'
+
+import '../styles/Landing.css'
+import media from '../meta/media-icons'
 
 export default class Landing extends Component {
   render() {
     return (
-      <div>
-        <h2>Landed</h2>
-        <Link to="/running">I run</Link>
+      <div id="wrapper">
+        <div id="name-wrapper"><h1>Kael Kirk</h1></div>
+        <div id="media-wrapper">
+          <SocialMediaBar icons={media}/>
+        </div>
+        <div id="portfolio-wrapper">
+          <SocialMediaBar icons={media}/>
+        </div>
       </div>
     )
   }

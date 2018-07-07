@@ -1,0 +1,13 @@
+.App {
+  
+  font-family: Rockwell;
+  color: white;
+}
+
+html, body {
+  
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(#03e854, #00bca4);
+}
