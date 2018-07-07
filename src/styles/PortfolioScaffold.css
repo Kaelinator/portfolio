@@ -3,12 +3,13 @@
 
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
+  color: black;
 }
 
 .header-wrapper {
   grid-column: 1 / 4;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: inherit;
   background-color: #444;
   border-bottom: 5px dashed rgba(0, 0, 0, 0.1);
 }
@@ -42,4 +43,13 @@
   font-size: 1.2em;
   font-family: sans-serif;
   grid-area: desc;
+}
+
+.portfolio-scaffold main {
+  grid-column: 2 / 3;
+}
+
+.portfolio-scaffold .card-list li {
+  list-style-type: none;
+  margin-top: 10px;
 }

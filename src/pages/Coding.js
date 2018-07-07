@@ -12,7 +12,13 @@ export default class Coding extends Component {
           o incorporate code wherever I can, whether into school, internships, a
           nd running."
         cards={[
-          {title: 'hi'}
+          {
+            title: 'hi',
+            alt: 'Judy hopps',
+            previewImg: 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fimages6.fanpop.com%2Fimage%2Fphotos%2F39900000%2Fjudy-hopps-judy-hopps-39913646-750-750.jpg&f=1'
+          },
+          {title: 'hello'},
+          {title: 'judy'}
         ]}
       />
     )

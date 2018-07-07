@@ -1,0 +1,29 @@
+.card {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+}
+
+.card-collapsed {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+}
+
+.card-collapsed .preview img {
+  width: 100%;
+  height: 100%;
+}
+
+.card-collapsed .title {
+  padding-left: 10px;
+  font-size: 3em;
+}
+
+.card-collapsed .drop-down {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  font-size: 3em;
+}
+
+.card-collapsed .drop-down i {
+  grid-row: 2 / 3;
+}

@@ -16,11 +16,15 @@ export default class PortfolioScaffold extends Component {
           </header>
         </div>
         <main>
-          {
-            this.props.cards.map((contents, i) => (
-              <Card contents={contents} key={i} />
-            ))
-          }
+          <ul className="card-list">
+            {
+              this.props.cards.map((contents, i) => (
+                <li key={`card-${i}`}>
+                  <Card contents={contents} />
+                </li>
+              ))
+            }
+          </ul>
         </main>
       </div>
     )
