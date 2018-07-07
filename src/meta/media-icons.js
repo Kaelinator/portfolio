@@ -11,33 +11,23 @@ export default [
     text: 'my GitHub'
   },
   {
-    media: 'youtube-play',
-    link: 'https://www.youtube.com/Kaelinatorpvp',
-    text: 'my YouTube channel'
+    media: 'twitter',
+    link: 'https://twitter.com/Kaelinator17',
+    text: 'my Twitter account'
   },
   {
-    media: 'github',
-    link: 'https://github.com/Kaelinator',
-    text: 'my GitHub'
+    media: 'quora',
+    link: 'https://www.quora.com/profile/Kael-Kirk',
+    text: 'my Quora profile'
   },
   {
-    media: 'youtube-play',
-    link: 'https://www.youtube.com/Kaelinatorpvp',
-    text: 'my YouTube channel'
+    media: 'medium',
+    link: 'https://medium.com/@kaelinator',
+    text: 'my Medium profile'
   },
   {
-    media: 'github',
-    link: 'https://github.com/Kaelinator',
-    text: 'my GitHub'
-  },
-  {
-    media: 'youtube-play',
-    link: 'https://www.youtube.com/Kaelinatorpvp',
-    text: 'my YouTube channel'
-  },
-  {
-    media: 'github',
-    link: 'https://github.com/Kaelinator',
-    text: 'my GitHub'
-  },
+    media: 'envelope',
+    link: 'mailto:kirkkael@gmail.com',
+    text: 'Email me'
+  }
 ]

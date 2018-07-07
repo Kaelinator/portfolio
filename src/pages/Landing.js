@@ -4,6 +4,8 @@ import SocialMediaBar from 'react-social-media-bar'
 import '../styles/Landing.css'
 import media from '../meta/media-icons'
 
+import PortFolioLink from '../UI/PortfolioLink'
+
 export default class Landing extends Component {
   render() {
     return (
@@ -13,7 +15,9 @@ export default class Landing extends Component {
           <SocialMediaBar icons={media}/>
         </div>
         <div id="portfolio-wrapper">
-          <SocialMediaBar icons={media}/>
+          <PortFolioLink icon="trophy" to="/running"/>
+          <PortFolioLink icon="code" to="/coding"/>
+          <PortFolioLink icon="video-camera" to="/creating"/>
         </div>
       </div>
     )
