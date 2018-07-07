@@ -1,0 +1,45 @@
+
+.portfolio-scaffold {
+
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+}
+
+.header-wrapper {
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  background-color: #444;
+  border-bottom: 5px dashed rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-scaffold header {
+  grid-column: 2 / 3;
+  display: grid;
+  color: white;
+  grid-template-areas:
+    "icon titl titl"
+    "icon desc desc";
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: auto;
+}
+
+.portfolio-scaffold .portfolio-link {
+  grid-area: icon;
+  padding: 5% 0 5% 0;
+}
+
+.portfolio-scaffold .portfolio-link i {
+  color: black;
+}
+
+.portfolio-scaffold header h1 {
+  font-size: 3em;
+  grid-area: titl;
+}
+
+.portfolio-scaffold header p {
+  font-size: 1.2em;
+  font-family: sans-serif;
+  grid-area: desc;
+}
