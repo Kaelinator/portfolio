@@ -3,16 +3,15 @@
 
 .card {
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-}
-
-.card-collapsed {
   display: grid;
-  grid-template-areas: "img title chev";
   grid-template-columns: 1fr 5fr 1fr;
 }
 
+.card-collapsed {
+  grid-template-areas: "img title chev";
+}
+
 .card-expanded {
-  display: grid;
   grid-template-areas:
     "title title chev "
     "desc  desc  chev "
@@ -20,7 +19,6 @@
     "dtail dtail dtail"
     "car   car   car  "
     "car   car   car  ";
-    grid-template-columns: 1fr 5fr 1fr;
 }
 
 .card .preview {
@@ -62,8 +60,8 @@
 }
 
 .card .carousel {
-  height: 90%;
   left: 50%;
+  height: 90%;
 }
 
 .card-collapsed .description,
@@ -72,21 +70,67 @@
   display: none;
 }
 
-.card .title {
-  padding-left: 10px;
-  grid-area: title;
-  font-size: 3em;
-}
-
 .card .drop-down {
   grid-area: chev;
   text-align: center;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
   font-size: 3em;
 }
 
 .card .drop-down i {
   grid-row: 2 / 3;
   cursor: pointer;
+}
+
+.card .title {
+  font-size: 1.5em;
+  padding-left: 10px;
+  grid-area: title;
+}
+
+@media only screen and (min-width: 1900px) {
+  
+  .card .title {
+    font-size: 4em;
+  }
+
+  .card .drop-down {
+    grid-template-rows: 1fr 1fr 1fr;
+    font-size: 3em;
+  }
+}
+
+@media only screen and (max-width: 1220px) {
+
+  .card {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  .card .carousel-wrapper {
+    width: 75%;
+  }
+
+  .card .carousel {
+    left: 18.75%;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+
+  .card {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  .card .description {
+    font-size: 1em;
+  }
+
+  .card .carousel-wrapper {
+    width: 100%;
+  }
+
+  .card .carousel {
+    left: 0;
+  }
 }

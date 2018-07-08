@@ -49,6 +49,7 @@
 .portfolio-scaffold main {
   grid-column: 2 / 3;
 }
+
 .portfolio-scaffold .card-list {
 
   padding-left: 0;
