@@ -4,17 +4,19 @@ import { Router, IndexRoute, Route } from 'react-router'
 import App from './App'
 
 import Landing from './pages/Landing'
-import Coding from './pages/Coding'
-import Running from './pages/Running'
-import Creating from './pages/Creating'
+
+import PortfolioScaffold from './UI/PortfolioScaffold'
+import runningData from './meta/running-data'
+import codingData from './meta/coding-data'
+import creatingData from './meta/creating-data'
 
 const Routes = (props) => (
   <Router {...props}>
     <Route path="/" component={App}>
       <IndexRoute component={Landing} />
-      <Route path="/running" component={Running} />
-      <Route path="/coding" component={Coding} />
-      <Route path="/creating" component={Creating} />
+      <Route path="/running" component={(props) => <PortfolioScaffold {...runningData} />} />
+      <Route path="/coding" component={(props) => <PortfolioScaffold {...codingData} />} />
+      <Route path="/creating" component={(props) => <PortfolioScaffold {...creatingData} />} />
     </Route>
   </Router>
 )

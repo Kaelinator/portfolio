@@ -6,11 +6,11 @@ import '../styles/PortfolioScaffold.css'
 
 export default class PortfolioScaffold extends Component {
   render() {
-    return (
+    return console.log(this.props) || (
       <div className="portfolio-scaffold">
         <div className="header-wrapper" style={{ backgroundColor: this.props.color }}>
           <header>
-            <PortfolioLink icon="code" to="/coding" />
+            <PortfolioLink icon={this.props.icon} />
             <h1>{this.props.title}</h1>
             <p>{this.props.description}</p>
           </header>
