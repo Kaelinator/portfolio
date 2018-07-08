@@ -68,7 +68,23 @@
 }
 
 @media only screen and (max-width: 690px) {
+  
   .portfolio-scaffold header {
     grid-column: 1 / 4;
+    grid-template-areas:
+      "icon titl titl"
+      "desc desc desc";
+  }
+
+  .portfolio-scaffold header p {
+    padding-left: 10px;
+  }
+
+  .portfolio-scaffold header p {
+    font-size: 1em;
+  }
+
+  .portfolio-scaffold .portfolio-link {
+    padding: 15px 0 0 0;
   }
 }

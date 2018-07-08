@@ -14,7 +14,7 @@
 .card-expanded {
   grid-template-areas:
     "title title chev "
-    "desc  desc  chev "
+    "desc  desc  desc "
     "img   img   img  "
     "dtail dtail dtail"
     "car   car   car  "
@@ -28,9 +28,8 @@
 .card .details {
   grid-area: dtail;
   display: grid;
-  padding: 10px 0 10px 0;
-  grid-template-columns: 2fr 1fr 2fr;
   font-size: 2em;
+  grid-template-columns: 2fr 1fr 2fr;
   text-align: center;
 }
 
@@ -62,6 +61,7 @@
 .card .carousel {
   left: 50%;
   height: 90%;
+  overflow-x: hidden;
 }
 
 .card-collapsed .description,
@@ -99,6 +99,20 @@
     grid-template-rows: 1fr 1fr 1fr;
     font-size: 3em;
   }
+
+  .card-expanded {
+    grid-template-areas:
+      "title title chev "
+      "desc  desc  chev "
+      "img   img   img  "
+      "dtail dtail dtail"
+      "car   car   car  "
+      "car   car   car  ";
+  }
+
+  .card .details {
+    padding: 10px 0 10px 0;
+  }
 }
 
 @media only screen and (max-width: 1220px) {
@@ -132,5 +146,9 @@
 
   .card .carousel {
     left: 0;
+  }
+
+  .card-expanded .preview .react-parallax {
+    height: 150px;
   }
 }
