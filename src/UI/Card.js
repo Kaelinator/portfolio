@@ -25,6 +25,16 @@ export default class Card extends Component {
   }
 
   render() {
+
+    const carouselSettings = {
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      className: 'carousel'
+    }
+
     return (
       <div className={`card ${(this.state.expanded) ? 'card-expanded' : 'card-collapsed'}`}>
         <div className="description">
@@ -46,13 +56,14 @@ export default class Card extends Component {
             aria-hidden={true} 
             onClick={this.toggleExpand}></i>
         </div>
+        <div className="details">
+          <p>Details</p>
+        </div>
         <div className="carousel-wrapper">
-          <Slider draggable={false} infinite={false}>
+          <Slider {...carouselSettings}>
             {
               this.props.contents.carousel.map((props, i) => (
-                <div key={`carousel-content-${i}`}>
-                  <Slide {...props} />
-                </div>
+                  <Slide {...props} key={`carousel-content-${i}`}/>
               ))
             }
           </Slider>

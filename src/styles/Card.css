@@ -14,16 +14,30 @@
 .card-expanded {
   display: grid;
   grid-template-areas:
-    "title title chev"
-    "desc  desc  chev"
-    "img   img   img "
-    "car   car   car "
-    "car   car   car ";
+    "title title chev "
+    "desc  desc  chev "
+    "img   img   img  "
+    "dtail dtail dtail"
+    "car   car   car  "
+    "car   car   car  ";
     grid-template-columns: 1fr 5fr 1fr;
 }
 
 .card .preview {
   grid-area: img;
+}
+
+.card .details {
+  grid-area: dtail;
+  display: grid;
+  padding: 10px 0 10px 0;
+  grid-template-columns: 2fr 1fr 2fr;
+  font-size: 2em;
+  text-align: center;
+}
+
+.card .details p {
+  grid-column: 2 / 3;
 }
 
 .card-expanded .preview .react-parallax {
@@ -44,11 +58,17 @@
 
 .card .carousel-wrapper {
   grid-area: car;
-  /* height: 400px; */
+  width: 50%;
+}
+
+.card .carousel {
+  height: 90%;
+  left: 50%;
 }
 
 .card-collapsed .description,
-.card-collapsed .carousel-wrapper {
+.card-collapsed .carousel-wrapper,
+.card-collapsed .details {
   display: none;
 }
 
