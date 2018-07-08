@@ -59,9 +59,8 @@
 }
 
 .card .carousel {
+  top: -30px;
   left: 50%;
-  height: 90%;
-  overflow-x: hidden;
 }
 
 .card-collapsed .description,
