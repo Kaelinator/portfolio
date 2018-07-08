@@ -57,3 +57,24 @@
 .portfolio-link i:hover {
   color: #4a3a78;
 }
+
+@media only screen and (max-width: 1220px) {
+
+  #name-wrapper {
+    grid-column: 1 / 6;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+
+  #name-wrapper {
+    grid-column: 1 / 6;
+  }
+
+  #name-wrapper h1 {
+    font-size: 5em;
+  }
+  .portfolio-link i {
+    font-size: 4em;
+  }
+}
