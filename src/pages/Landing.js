@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SocialMediaBar from 'react-social-media-bar'
+import { get } from 'axios'
 
 import '../styles/Landing.css'
 
@@ -16,9 +17,9 @@ export default class Landing extends Component {
   }
 
   componentDidMount() {
-    console.log('Endpoint from Landing:', process.env.REACT_APP_SOCIAL_LINKS_ENPOINT)
-    fetch(process.env.REACT_APP_SOCIAL_LINKS_ENPOINT)
-      .then(res => res.json())
+
+    get(process.env.REACT_APP_SOCIAL_LINKS_ENPOINT)
+      .then(res => res.data)
       .then(media => this.setState({ media }))
       .catch(console.log)
   }
