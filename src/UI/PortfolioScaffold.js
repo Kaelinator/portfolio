@@ -21,9 +21,18 @@ export default class PortfolioScaffold extends Component {
 
   componentDidMount() {
     
-    get(process.env.REACT_APP_META_ENDPOINT, { params: { pillar: this.props.pillar } })
+    const options = {
+      params: { pillar: this.props.pillar }
+    }
+
+    get(process.env.REACT_APP_META_ENDPOINT, options)
       .then(res => res.data)
       .then(meta => this.setState({ ...meta }))
+      .catch(console.log)
+    
+    get(process.env.REACT_APP_CARDS_ENDPOINT, options)
+      .then(res => res.data)
+      .then(cards => this.setState({ cards }))
       .catch(console.log)
   }
 
