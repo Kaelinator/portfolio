@@ -76,6 +76,10 @@
       "desc desc desc";
   }
 
+  .portfolio-scaffold header h1 {
+    padding-left: 20px;
+  }
+
   .portfolio-scaffold header p {
     padding-left: 10px;
   }

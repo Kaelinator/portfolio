@@ -37,7 +37,7 @@ export default class PortfolioScaffold extends Component {
   }
 
   render() {
-    return console.log(this.state) || (
+    return (
       <div className="portfolio-scaffold">
         <div className="header-wrapper" style={{ backgroundColor: this.state.color }}>
           <header>
