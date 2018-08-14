@@ -32,9 +32,9 @@ export default class Landing extends Component {
           <SocialMediaBar icons={this.state.media}/>
         </div>
         <div id="portfolio-wrapper">
-          <PortFolioLink icon="trophy" to="/running"/>
-          <PortFolioLink icon="code" to="/coding"/>
-          <PortFolioLink icon="video-camera" to="/creating"/>
+          <PortFolioLink icon="trophy" to="/running" subtitle="Running" />
+          <PortFolioLink icon="code" to="/coding" subtitle="Coding" />
+          <PortFolioLink icon="video-camera" to="/creating" subtitle="Creating" />
         </div>
       </div>
     )

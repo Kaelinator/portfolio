@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-export default (props) => {
+export default props => {
   return (
     <div className="portfolio-link">
       <Link to={props.to}>
         <i className={`fa fa-${props.icon}`} aria-hidden={true}></i>
+        { props.subtitle && <h1 className="subtitle">{props.subtitle}</h1> }
       </Link>
     </div>
   )
