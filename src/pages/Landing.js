@@ -12,7 +12,13 @@ export default class Landing extends Component {
     super()
 
     this.state = {
-      media: []
+      media: [
+        {
+          text: 'Loading',
+          link: '#',
+          media: 'spinner'
+        }
+      ]
     }
   }
 
