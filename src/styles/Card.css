@@ -5,6 +5,7 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
+  animation: slide-bottom 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .card-collapsed {

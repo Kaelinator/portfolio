@@ -12,6 +12,7 @@
   grid-template-columns: inherit;
   background-color: #444;
   border-bottom: 5px dashed rgba(0, 0, 0, 0.1);
+  animation: fade 0.5s;
 }
 
 .portfolio-scaffold header {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './styles/App.css'
+import './styles/Animations.css'
 
 class App extends Component {
   render() {

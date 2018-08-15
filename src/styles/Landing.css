@@ -29,7 +29,7 @@
   color: #dd6e42;
   opacity: 0.6;
   font-size: 3em;
-  transition: opacity 0.2s ease-in;
+  animation: fade-point-6 1s;
 }
 
 #media-wrapper i:hover {
@@ -52,7 +52,6 @@
   border-radius: 100%;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
   background: white;
-  transition: color 0.2s ease-in;
 }
 
 .portfolio-link i:hover {
