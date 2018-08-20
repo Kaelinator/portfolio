@@ -18,7 +18,8 @@ export default class Landing extends Component {
           link: '#',
           media: 'spinner'
         }
-      ]
+      ],
+      loading: true
     }
   }
 
@@ -26,7 +27,7 @@ export default class Landing extends Component {
 
     get(process.env.REACT_APP_SOCIAL_LINKS_ENPOINT)
       .then(res => res.data)
-      .then(media => this.setState({ media }))
+      .then(media => this.setState({ media, loading: false }))
       .catch(console.log)
   }
 
@@ -34,8 +35,8 @@ export default class Landing extends Component {
     return (
       <div id="wrapper">
         <div id="name-wrapper"><h1>Kael Kirk</h1></div>
-        <div id="media-wrapper">
-          <SocialMediaBar icons={this.state.media}/>
+        <div id="media-wrapper" className={`${this.state.loading && 'loading'}`} >
+          <SocialMediaBar icons={this.state.media} />
         </div>
         <div id="portfolio-wrapper">
           <PortFolioLink icon="trophy" to="/running" subtitle="Running" />

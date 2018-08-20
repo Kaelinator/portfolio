@@ -15,7 +15,8 @@ export default class PortfolioScaffold extends Component {
       title: 'Loading',
       description: '...',
       color: '#999',
-      cards: []
+      cards: [],
+      loading: true
     }
   }
 
@@ -27,7 +28,7 @@ export default class PortfolioScaffold extends Component {
 
     get(process.env.REACT_APP_META_ENDPOINT, options)
       .then(res => res.data)
-      .then(meta => this.setState({ ...meta }))
+      .then(meta => this.setState({ ...meta, loading: false }))
       .catch(console.log)
     
     get(process.env.REACT_APP_CARDS_ENDPOINT, options)
@@ -41,7 +42,7 @@ export default class PortfolioScaffold extends Component {
       <div className="portfolio-scaffold">
         <div className="header-wrapper" style={{ backgroundColor: this.state.color }}>
           <header>
-            <PortfolioLink icon={this.state.icon} />
+            <PortfolioLink icon={this.state.icon} loading={this.state.loading} />
             <h1>{this.state.title}</h1>
             <p>{this.state.description}</p>
           </header>

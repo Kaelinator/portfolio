@@ -21,13 +21,37 @@
   }
 }
 
-@keyframes slide-bottom {
+@keyframes pop-in {
   
   0% {
-    margin-top: 50%;
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate-flip {
+  
+  0% {
+    transform: rotate(180deg);
   }
 
   100% {
-    margin-top: 0%;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
   }
 }

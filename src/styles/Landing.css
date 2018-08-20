@@ -52,10 +52,15 @@
   border-radius: 100%;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
   background: white;
+  transition: color 0.5s;
 }
 
 .portfolio-link i:hover {
   color: #4a3a78;
+}
+
+.loading {
+  animation: spin 1s infinite linear;
 }
 
 @media only screen and (max-width: 1220px) {
@@ -72,10 +77,18 @@
   }
 
   #name-wrapper h1 {
-    font-size: 5em;
+    font-size: 4em;
   }
   
+  #media-wrapper i {
+    font-size: 2em;
+  }
+
   .portfolio-link i {
-    font-size: 4em;
+    font-size: 3em;
+  }
+
+  .portfolio-link h1 {
+    font-size: 1em;
   }
 }

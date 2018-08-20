@@ -37,8 +37,8 @@
 
 .portfolio-scaffold header h1 {
   font-size: 3em;
-  padding-left: 20px;
   grid-area: titl;
+  text-align: left;
 }
 
 .portfolio-scaffold header p {
@@ -58,7 +58,7 @@
 
 .portfolio-scaffold .card-list li {
   list-style-type: none;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 @media only screen and (max-width: 1220px) {
@@ -66,6 +66,11 @@
   .portfolio-scaffold main {
     grid-column: 1 / 4;
   }
+
+  .portfolio-scaffold header h1 {
+    text-align: center;
+  }
+
 }
 
 @media only screen and (max-width: 690px) {
@@ -79,6 +84,7 @@
 
   .portfolio-scaffold header h1 {
     padding-left: 20px;
+    text-align: left;
   }
 
   .portfolio-scaffold header p {
