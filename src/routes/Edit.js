@@ -15,19 +15,34 @@ export default class Edit extends Component {
 
     const { firebase } = this.props;
 
-    firebase.auth().onAuthStateChanged(console.log);
+    firebase.auth().onAuthStateChanged(user => this.setState({ signedIn: !!user }));
     this.signIn = this.signIn.bind(this);
+    this.signOut = this.signOut.bind(this);
+    // this.createArticle = this.createArticle.bind(this);
   }
 
   signIn(event) {
     event.preventDefault();
-    const email = event.target[0].value;
-    const password = event.target[0].value;
     const { firebase } = this.props;
+
+    const email = event.target[0].value;
+    const password = event.target[1].value;
+
     firebase.auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(err => console.log('There was an error!', err));
-    this.setState({ signedIn: true });
+      .catch(err => console.log('Sign in error!', err));
+  }
+
+  signOut() {
+    const { firebase } = this.props;
+
+    firebase.auth().signOut()
+      .then(() => this.setState({ signedIn: false }))
+      .catch(err => console.err('Sign out error!', err));
+  }
+
+  createArticle() {
+
   }
 
   render() {
@@ -45,6 +60,9 @@ export default class Edit extends Component {
         </label>
 
         <input type="submit" value="Sign in" />
+
+        <button type="button" onClick={this.signOut}>Sign out</button>
+        <button type="button" onClick={this.createArticle}>New article</button>
 
         { signedIn && <h1>Hello!</h1> }
       </form>
