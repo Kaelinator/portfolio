@@ -16,9 +16,10 @@ export default class Edit extends Component {
     const { firebase } = this.props;
 
     firebase.auth().onAuthStateChanged(user => this.setState({ signedIn: !!user }));
+
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
-    // this.createArticle = this.createArticle.bind(this);
+    this.createArticle = this.createArticle.bind(this);
   }
 
   signIn(event) {
@@ -42,7 +43,19 @@ export default class Edit extends Component {
   }
 
   createArticle() {
-
+    const { firebase } = this.props;
+    const firestore = firebase.firestore();
+    firestore.settings({ timestampsInSnapshots: true });
+    firestore.collection('articles')
+      .add({
+        title: 'My Second Article',
+        subtitle: 'This is my second article!',
+        tags: [
+          'code',
+        ],
+      })
+      .then((docRef) => { console.log('Created doc!', docRef); })
+      .catch((err) => { console.log('Error adding document!', err.code); });
   }
 
   render() {
