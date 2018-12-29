@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import * as firebase from 'firebase';
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 import Home from './routes/Home';
+import Edit from './routes/Edit';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCbxy9RWIUIUckXpRPea0zwlg1drezBtHs',
@@ -19,7 +22,7 @@ export default () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/edit" component={ToDo} />
+      <Route path="/edit" component={() => <Edit firebase={firebase} />} />
       <Route path="/:articleId" component={ToDo} />
     </Switch>
   </BrowserRouter>
