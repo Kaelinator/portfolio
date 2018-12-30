@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
-  Desktop, DesktopLarge, Tablet, Mobile,
+  DesktopSmall, DesktopLarge, Tablet, Mobile,
 } from './DeviceQueries';
 
 const GridLarge = styled.div`
@@ -52,9 +52,9 @@ const HomeLayout = ({ children }) => (
       <GridLarge>{children}</GridLarge>
     </DesktopLarge>
 
-    <Desktop>
+    <DesktopSmall>
       <Grid>{children}</Grid>
-    </Desktop>
+    </DesktopSmall>
 
     <Tablet>
       <GridTablet>{children}</GridTablet>

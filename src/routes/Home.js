@@ -4,7 +4,7 @@ import posed, { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
 import Banner from '../components/Banner';
-import HomeLayout from '../components/HomeLayout';
+import HomeLayout from '../layouts/HomeLayout';
 
 const Item = posed.div();
 
