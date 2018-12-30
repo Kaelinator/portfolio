@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
-import { NotMobile } from '../layouts/DeviceQueries';
+// import { NotMobile } from '../layouts/DeviceQueries';
 import MagnifyingGlass from '../svg/MagnifyingGlass';
 
 const Wrapper = styled.div`
