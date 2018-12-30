@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import Tag from './Tag';
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: repeat(3, auto);
@@ -9,7 +11,12 @@ const Container = styled.div`
 const Name = styled.h1`
   font-family: arial;
   text-align: center;
-  font-size: 2em;
+  font-size: 7em;
+`;
+
+const TagHolder = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default class Banner extends Component {
@@ -17,8 +24,11 @@ export default class Banner extends Component {
     return (
       <Container>
         <Name>Kael Kirk</Name>
-        <p>Heck</p>
-        <p>Heck!</p>
+        <TagHolder>
+          <Tag color="#22DDEE" accent="#00BBCC">Coding</Tag>
+          <Tag color="#55EE22" accent="#33CC00">Creating</Tag>
+          <Tag color="#DEEE22" accent="#BCCC00">Running</Tag>
+        </TagHolder>
       </Container>
     );
   }

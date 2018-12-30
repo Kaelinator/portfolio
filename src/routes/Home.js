@@ -29,11 +29,11 @@ export default class Home extends Component {
   // constructor(props) {
   //   super(props);
 
-  //   // setInterval(() => {
-  //   //   this.setState(prevState => ({
-  //   //     articles: prevState.articles.reverse(),
-  //   //   }));
-  //   // }, 1000);
+  //   setInterval(() => {
+  //     this.setState(prevState => ({
+  //       articles: prevState.articles.reverse(),
+  //     }));
+  //   }, 1000);
   // }
 
   render() {

@@ -13,6 +13,7 @@ const GridLarge = styled.div`
     'left left head head head head right right'
     'left left head head head head right right';
   grid-auto-flow: row dense;
+  grid-auto-columns: 1fr;
   grid-gap: 20px;
 `;
 
@@ -22,6 +23,7 @@ const Grid = styled.div`
     'left head head head right'
     'left head head head right';
   grid-auto-flow: row dense;
+  grid-auto-columns: 1fr;
   grid-gap: 20px;
 `;
 
@@ -30,6 +32,7 @@ const GridTablet = styled.div`
   grid-template-areas: 
     'left head head right';
   grid-auto-flow: row dense;
+  grid-auto-columns: 1fr;
   grid-gap: 20px;
 `;
 
@@ -39,6 +42,7 @@ const GridMobile = styled.div`
     'head'
     'head';
   grid-auto-flow: row dense;
+  grid-auto-columns: 1fr;
   grid-gap: 20px;
 `;
 
