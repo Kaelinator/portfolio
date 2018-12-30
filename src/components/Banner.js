@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 440px;
-  height: 200px;
   display: grid;
   grid-template-rows: repeat(3, auto);
 `;
