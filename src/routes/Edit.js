@@ -104,6 +104,7 @@ export default class Edit extends Component {
           <input type="submit" value="Upload File" />
         </form>
         { signedIn && <h1>Hello!</h1> }
+        <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-5e3de.appspot.com/o/article1%2F1-10-00.PNG?alt=media&token=0fc2d487-7007-4996-9f4e-44e3047cc8ee" alt="Judy hopps" />
       </>
     );
   }
