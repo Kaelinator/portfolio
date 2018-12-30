@@ -20,6 +20,7 @@ export default class Edit extends Component {
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
     this.createArticle = this.createArticle.bind(this);
+    this.uploadFile = this.uploadFile.bind(this);
   }
 
   signIn(event) {
@@ -58,27 +59,52 @@ export default class Edit extends Component {
       .catch((err) => { console.log('Error adding document!', err.code); });
   }
 
+  uploadFile(event) {
+    event.preventDefault();
+
+    const file = event.target[0].files[0];
+    if (!file) return;
+
+    const { firebase } = this.props;
+
+    const storageRef = firebase
+      .storage()
+      .ref()
+      .child('article1')
+      .child(file.name);
+
+    storageRef.put(file)
+      .then(snapshot => console.log('Successfully uploaded!', snapshot))
+      .catch(err => console.log('Error uploading!', err.code));
+  }
+
   render() {
     const { signedIn } = this.state;
     return (
-      <form onSubmit={this.signIn}>
-        <label htmlFor="email">
-          <span>Email:</span>
-          <input type="text" id="email" />
-        </label>
+      <>
+        <form onSubmit={this.signIn}>
+          <label htmlFor="email">
+            <span>Email:</span>
+            <input type="text" id="email" />
+          </label>
 
-        <label htmlFor="password">
-          <span>Password:</span>
-          <input type="password" id="password" />
-        </label>
+          <label htmlFor="password">
+            <span>Password:</span>
+            <input type="password" id="password" />
+          </label>
 
-        <input type="submit" value="Sign in" />
+          <input type="submit" value="Sign in" />
+        </form>
 
         <button type="button" onClick={this.signOut}>Sign out</button>
         <button type="button" onClick={this.createArticle}>New article</button>
 
+        <form onSubmit={this.uploadFile}>
+          <input type="file" />
+          <input type="submit" value="Upload File" />
+        </form>
         { signedIn && <h1>Hello!</h1> }
-      </form>
+      </>
     );
   }
 }
