@@ -19,8 +19,25 @@ const GridLarge = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-areas: 
-    'left head head head head right'
-    'left head head head head right';
+    'left head head head right'
+    'left head head head right';
+  grid-auto-flow: row dense;
+  grid-gap: 20px;
+`;
+
+const GridTablet = styled.div`
+  display: grid;
+  grid-template-areas: 
+    'left head head right';
+  grid-auto-flow: row dense;
+  grid-gap: 20px;
+`;
+
+const GridMobile = styled.div`
+  display: grid;
+  grid-template-areas: 
+    'head'
+    'head';
   grid-auto-flow: row dense;
   grid-gap: 20px;
 `;
@@ -28,17 +45,20 @@ const Grid = styled.div`
 const HomeLayout = ({ children }) => (
   <>
     <DesktopLarge>
-      <GridLarge>
-        {children}
-      </GridLarge>
+      <GridLarge>{children}</GridLarge>
     </DesktopLarge>
+
     <Desktop>
-      <Grid>
-        {children}
-      </Grid>
+      <Grid>{children}</Grid>
     </Desktop>
-    <Tablet><div style={{ background: 'green' }}>{children}</div></Tablet>
-    <Mobile><div style={{ background: 'blue' }}>{children}</div></Mobile>
+
+    <Tablet>
+      <GridTablet>{children}</GridTablet>
+    </Tablet>
+
+    <Mobile>
+      <GridMobile>{children}</GridMobile>
+    </Mobile>
   </>
 );
 
