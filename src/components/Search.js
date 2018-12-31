@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import posed from 'react-pose';
+import PropTypes from 'prop-types';
 
+import posed from 'react-pose';
 import styled from 'styled-components';
 
 import MagnifyingGlass from '../svg/MagnifyingGlass';
@@ -38,34 +39,41 @@ const ExpandableWrapper = posed.div({
 });
 
 export default class Search extends Component {
-  state = {
-    expanded: false,
-    value: '',
+  static propTypes = {
+    isMobile: PropTypes.bool,
+    onExpand: PropTypes.func.isRequired,
+    onContract: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    isMobile: true,
   }
 
   constructor(props) {
     super(props);
 
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    const expanded = !props.isMobile;
+
+    this.state = {
+      expanded,
+      value: '',
+    };
+
     this.toggleExpanded = this.toggleExpanded.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    this.setState(({ expanded }) => ({ expanded: expanded || window.innerWidth > 767 }));
-  }
-
   toggleExpanded() {
-    this.setState(({ expanded }) => ({ expanded: !expanded }));
+    const { isMobile, onExpand, onContract } = this.props;
+    const { expanded } = this.state;
+
+    if (!isMobile) return; // no need to toggle
+
+    if (!expanded) onExpand();
+    else onContract();
+
+
+    this.setState(({ expanded: !expanded }));
   }
 
   handleChange(event) {

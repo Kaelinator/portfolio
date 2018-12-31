@@ -15,9 +15,9 @@ const Container = styled.div`
 `;
 
 const Ribbon = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-template-areas: 'sbar name';
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const BannerLayout = ({ children }) => (

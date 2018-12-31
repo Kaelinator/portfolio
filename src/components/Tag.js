@@ -1,8 +1,85 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import posed from 'react-pose';
 
-// import { Mobile, NotMobile } from '../layouts/DeviceQueries';
+import Stack from '../svg/Stack';
+
+const ExpandableWrapper = posed.div({
+  expanded: { width: 'auto', height: 'auto' },
+  contracted: { width: 50, height: 50 },
+});
+
+const Layout = styled.div`
+  display: grid;
+`;
+
+const Horizontal = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const TagIcon = styled.span`
+  display: inline-block;
+  padding: 2px;
+  vertical-align: text-bottom;
+`;
+
+class TagHolder extends Component {
+  static propTypes = {
+    children: PropTypes.array,
+    isMobile: PropTypes.bool,
+    onExpand: PropTypes.func.isRequired,
+    onContract: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    children: [],
+    isMobile: true,
+  };
+
+  constructor(props) {
+    super(props);
+
+    const expanded = !props.isMobile;
+
+    this.state = {
+      expanded,
+    };
+
+    this.toggleExpanded = this.toggleExpanded.bind(this);
+  }
+
+  toggleExpanded() {
+    const { isMobile, onExpand, onContract } = this.props;
+    const { expanded } = this.state;
+
+    if (!isMobile) return; // no need to toggle
+
+    if (!expanded) onExpand();
+    else onContract();
+
+
+    this.setState(({ expanded: !expanded }));
+  }
+
+  render() {
+    const { children, isMobile } = this.props;
+    const { expanded } = this.state;
+    return (
+      <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden' }}>
+        <Layout style={{ gridTemplateColumns: isMobile ? '50px auto' : 'auto' }}>
+          {isMobile && <TagIcon onClick={this.toggleExpanded}><Stack /></TagIcon>}
+          <Horizontal>
+            {children}
+          </Horizontal>
+        </Layout>
+      </ExpandableWrapper>
+    );
+  }
+}
 
 const Wrapper = styled.span`
   border-radius: 4px;
@@ -29,25 +106,6 @@ Tag.defaultProps = {
   color: '#999',
   accent: '#000',
   children: '',
-};
-
-const Horizontal = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TagHolder = ({ children }) => (
-  <>
-    <Horizontal>{children}</Horizontal>
-  </>
-);
-
-TagHolder.propTypes = {
-  children: PropTypes.array,
-};
-
-TagHolder.defaultProps = {
-  children: [],
 };
 
 export { Tag, TagHolder };
