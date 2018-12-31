@@ -16,6 +16,10 @@ const Article = styled.div`
   height: 200px;
 `;
 
+const Wrapper = styled.div`
+  background: #F9F9FA;
+`;
+
 export default class Home extends Component {
   state = {
     articles: Array(50)
@@ -39,12 +43,14 @@ export default class Home extends Component {
   render() {
     const { articles } = this.state;
     return (
-      <HomeLayout>
-        <PoseGroup>
-          <div key="banner" style={{ gridArea: 'head' }}><Banner /></div>
-          {articles.map(({ id, body }) => <Item key={id}>{body()}</Item>)}
-        </PoseGroup>
-      </HomeLayout>
+      <Wrapper>
+        <HomeLayout>
+          <PoseGroup>
+            <div key="banner" style={{ gridArea: 'head' }}><Banner key="banner" style={{ gridArea: 'head' }} /></div>
+            {articles.map(({ id, body }) => <Item key={id}>{body()}</Item>)}
+          </PoseGroup>
+        </HomeLayout>
+      </Wrapper>
     );
   }
 }

@@ -67,11 +67,11 @@ const HomeLayout = ({ children }) => (
 );
 
 HomeLayout.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.object,
 };
 
 HomeLayout.defaultProps = {
-  children: [],
+  children: {},
 };
 
 export default HomeLayout;

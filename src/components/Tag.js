@@ -22,13 +22,13 @@ const Tag = ({ color, accent, children }) => (
 Tag.propTypes = {
   color: PropTypes.string,
   accent: PropTypes.string,
-  children: PropTypes.array,
+  children: PropTypes.string,
 };
 
 Tag.defaultProps = {
   color: '#999',
   accent: '#000',
-  children: [],
+  children: '',
 };
 
 const Horizontal = styled.div`
