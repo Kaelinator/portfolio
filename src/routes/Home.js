@@ -11,8 +11,13 @@ import HomeLayout from '../layouts/HomeLayout';
 const Item = posed.div();
 
 const Wrapper = styled.div`
-  background: #F9F9FA;
   color: #1F1F20;
+`;
+
+const Results = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
 `;
 
 const colorMap = {
@@ -22,11 +27,13 @@ const colorMap = {
 };
 
 export default class Home extends Component {
-  state = {
-    articles: Array(50)
+  constructor(props) {
+    super(props);
+
+    const articles = Array(50)
       .fill(0)
       .map((_, i) => ({
-        id: i,
+        id: Math.random(),
         title: 'Necessitatibuses voluptatem accusamus provident. Sit temporibus ea sint. Beatae tempora placeat laboriosam et alias magni. Non esse omnis velit sunt labore.',
         subtitle: Array(5).fill(`This is article Necessitatibuses ${i}.`).join(''),
         tags: shuffle(['coding', 'creating', 'running']).slice(1),
@@ -34,32 +41,57 @@ export default class Home extends Component {
       .map(a => ({
         ...a,
         colors: a.tags.map(tag => colorMap[tag]),
-      })),
+      }));
+
+    this.state = {
+      articles,
+      visibleArticles: articles,
+      searching: false,
+    };
+
+    this.search = this.search.bind(this);
   }
 
-  // constructor(props) {
-  //   super(props);
-
-  //   setInterval(() => {
-  //     this.setState(prevState => ({
-  //       articles: prevState.articles.reverse(),
-  //     }));
-  //   }, 1000);
-  // }
+  search(text) {
+    const { articles } = this.state;
+    const visibleArticles = articles.filter(({ title }) => title.includes(text));
+    this.setState({
+      visibleArticles,
+      searching: !!(text.length),
+    });
+  }
 
   render() {
-    const { articles } = this.state;
+    const { visibleArticles, searching } = this.state;
     return (
       <Wrapper>
         <HomeLayout>
           <PoseGroup>
-            <div key="banner" style={{ gridArea: 'head' }}><Banner key="banner" style={{ gridArea: 'head' }} /></div>
+            <div key="banner" style={{ gridArea: 'head' }}>
+              <Banner key="banner" style={{ gridArea: 'head' }} onSearch={this.search} />
+            </div>
             {
-              articles.map(article => (
-                <Item key={article.id}>
-                  <Article {...article} />
-                </Item>
-              ))
+              searching
+                ? (
+                  <Item key="results" style={{ gridArea: 'rslt' }}>
+                    <Results>
+                      {
+                        visibleArticles.length === 0
+                          ? <h2>No articles found</h2>
+                          : visibleArticles.map(article => (
+                            <Item key={article.id}>
+                              <Article {...article} />
+                            </Item>
+                          ))
+                  }
+                    </Results>
+                  </Item>
+                )
+                : visibleArticles.map(article => (
+                  <Item key={article.id}>
+                    <Article {...article} />
+                  </Item>
+                ))
             }
           </PoseGroup>
         </HomeLayout>

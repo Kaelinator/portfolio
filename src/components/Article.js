@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import shuffle from 'array-shuffle';
 import Card from './Card';
 
 const Wrapper = styled.div`
@@ -43,7 +42,7 @@ const Subtitle = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-const getBackground = colors => shuffle(['45deg', '135deg', '225deg', '315deg'])
+const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .slice(0, colors.length)
   .map((direction, i) => `linear-gradient(${direction}, ${colors[i]}, rgba(0, 0, 0, 0))`)
   .join(',');

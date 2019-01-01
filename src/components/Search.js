@@ -41,6 +41,7 @@ export default class Search extends Component {
     isMobile: PropTypes.bool,
     onExpand: PropTypes.func.isRequired,
     onContract: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -75,7 +76,11 @@ export default class Search extends Component {
   }
 
   handleChange(event) {
+    const { onSearch } = this.props;
+
     this.setState({ value: event.target.value });
+
+    onSearch(event.target.value);
   }
 
   render() {

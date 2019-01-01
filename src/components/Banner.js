@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Tag, TagHolder } from './Tag';
@@ -22,6 +23,10 @@ const NameSmall = styled.h1`
 `;
 
 export default class Banner extends Component {
+  static propTypes = {
+    onSearch: PropTypes.func.isRequired,
+  }
+
   state = {
     focused: null,
   }
@@ -37,6 +42,7 @@ export default class Banner extends Component {
   }
 
   render() {
+    const { onSearch } = this.props;
     const { focused } = this.state;
     return (
       <Mobile>
@@ -71,7 +77,15 @@ export default class Banner extends Component {
               }
               {
                 (!focused || focused === 'SCH')
-                  ? <Search type="text" isMobile={isMobile} onExpand={() => this.setFocus('SCH')} onContract={() => this.setFocus(null)} />
+                  ? (
+                    <Search
+                      type="text"
+                      isMobile={isMobile}
+                      onSearch={onSearch}
+                      onExpand={() => this.setFocus('SCH')}
+                      onContract={() => this.setFocus(null)}
+                    />
+                  )
                   : null
               }
             </BannerLayout>
