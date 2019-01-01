@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Tag, TagHolder } from './Tag';
-import Search from './Search';
 import BannerLayout from '../layouts/BannerLayout';
 import { Tablet, Desktop, Mobile } from '../layouts/DeviceQueries';
 
@@ -24,7 +23,7 @@ const NameSmall = styled.h1`
 
 export default class Banner extends Component {
   static propTypes = {
-    onSearch: PropTypes.func.isRequired,
+    Search: PropTypes.func.isRequired,
   }
 
   state = {
@@ -42,26 +41,23 @@ export default class Banner extends Component {
   }
 
   render() {
-    const { onSearch } = this.props;
+    const { Search } = this.props;
     const { focused } = this.state;
     return (
-      <Mobile>
+      <BannerLayout>
+        <Desktop>
+          <Name>Kael Kirk</Name>
+        </Desktop>
+        <Tablet>
+          <NameSmall>Kael Kirk</NameSmall>
+        </Tablet>
+        <Mobile>
+          { !focused && <NameSmall>Kael</NameSmall> }
+        </Mobile>
         {
-          isMobile => (
-            <BannerLayout>
-              <Desktop>
-                <Name>Kael Kirk</Name>
-              </Desktop>
-              <Tablet>
-                <NameSmall>Kael Kirk</NameSmall>
-              </Tablet>
-              <Mobile>
-                { !focused && <NameSmall>Kael</NameSmall> }
-              </Mobile>
-              {
                 (!focused || focused === 'TAG')
                   ? (
-                    <TagHolder isMobile={isMobile} onExpand={() => this.setFocus('TAG')} onContract={() => this.setFocus(null)}>
+                    <TagHolder onExpand={() => this.setFocus('TAG')} onContract={() => this.setFocus(null)}>
                       <Tag color="#22DDEE" accent="#00BBCC">Coding</Tag>
                       <Tag color="#55EE22" accent="#33CC00">Creating</Tag>
                       <Tag color="#DEEE22" accent="#BCCC00">Running</Tag>
@@ -75,23 +71,8 @@ export default class Banner extends Component {
                   )
                   : null
               }
-              {
-                (!focused || focused === 'SCH')
-                  ? (
-                    <Search
-                      type="text"
-                      isMobile={isMobile}
-                      onSearch={onSearch}
-                      onExpand={() => this.setFocus('SCH')}
-                      onContract={() => this.setFocus(null)}
-                    />
-                  )
-                  : null
-              }
-            </BannerLayout>
-          )
-        }
-      </Mobile>
+        <Search />
+      </BannerLayout>
     );
   }
 }

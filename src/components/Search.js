@@ -25,22 +25,24 @@ const Bar = styled.input`
   color: #1F1F20;
 `;
 
-const SearchIcon = styled.span`
+const SearchIcon = styled.button`
   vertical-align: text-bottom;
   display: inline-block;
-  width: 50px;
+  background: white;
+  padding: 0;
+  margin: 0;
+  border-radius: inherit;
+  border: none;
 `;
 
 const ExpandableWrapper = posed.div({
   expanded: { width: 'auto' },
-  contracted: { width: 50 },
+  contracted: { width: '-moz-min-content' },
 });
 
 export default class Search extends Component {
   static propTypes = {
     isMobile: PropTypes.bool,
-    onExpand: PropTypes.func.isRequired,
-    onContract: PropTypes.func.isRequired,
     onSearch: PropTypes.func.isRequired,
   }
 
@@ -63,14 +65,10 @@ export default class Search extends Component {
   }
 
   toggleExpanded() {
-    const { isMobile, onExpand, onContract } = this.props;
+    const { isMobile } = this.props;
     const { expanded } = this.state;
 
     if (!isMobile) return; // no need to toggle
-
-    if (!expanded) onExpand();
-    else onContract();
-
 
     this.setState(({ expanded: !expanded }));
   }
@@ -89,8 +87,10 @@ export default class Search extends Component {
       <Card borderRadius="3px">
         <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden', borderRadius: 'inherit' }}>
           <Layout>
-            <SearchIcon onClick={this.toggleExpanded}><MagnifyingGlass color="#1F1F20" /></SearchIcon>
-            <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />
+            <SearchIcon onClick={this.toggleExpanded}>
+              <MagnifyingGlass color="#1F1F20" />
+            </SearchIcon>
+            {expanded && <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />}
           </Layout>
         </ExpandableWrapper>
       </Card>

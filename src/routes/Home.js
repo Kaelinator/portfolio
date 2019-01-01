@@ -7,6 +7,7 @@ import shuffle from 'array-shuffle';
 import Banner from '../components/Banner';
 import Article from '../components/Article';
 import HomeLayout from '../layouts/HomeLayout';
+import Search from '../components/Search';
 
 const Item = posed.div();
 
@@ -68,7 +69,14 @@ export default class Home extends Component {
         <HomeLayout>
           <PoseGroup>
             <div key="banner" style={{ gridArea: 'head' }}>
-              <Banner key="banner" style={{ gridArea: 'head' }} onSearch={this.search} />
+              <Banner Search={
+                () => (
+                  <Search
+                    type="text"
+                    onSearch={this.search}
+                  />
+                )}
+              />
             </div>
             {
               searching
