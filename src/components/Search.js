@@ -5,25 +5,41 @@ import posed from 'react-pose';
 import styled from 'styled-components';
 
 import MagnifyingGlass from '../svg/MagnifyingGlass';
-import Card from './Card';
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: 50px auto;
+const Layout = posed(styled.div`
+  display: flex;
+  flex-direction: row;
   border-radius: inherit;
   border: solid gray 1px;
+  border-radius: 3px;
   background: white;
-`;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+`)({
+  expanded: { width: 'auto' },
+  contracted: { width: 50 },
+});
 
-const Bar = styled.input`
+const Bar = posed(styled.input`
   border: none;
   vertical-align: text-bottom;
-  display: inline-block;
   margin-right: 5px;
   padding: 5px;
-  font-size: 1.5em;
+  font-size: 1em;
   color: #1F1F20;
-`;
+  flex-grow: 2;
+  flex-shrink: 0.5;
+`)({
+  expanded: {
+    applyAtStart: { display: 'block' },
+    width: 'auto',
+  },
+  contracted: {
+    applyAtEnd: { display: 'none' },
+    width: 0,
+  },
+});
 
 const SearchIcon = styled.button`
   vertical-align: text-bottom;
@@ -33,12 +49,9 @@ const SearchIcon = styled.button`
   margin: 0;
   border-radius: inherit;
   border: none;
+  width: 50px;
+  flex-shrink: 0;
 `;
-
-const ExpandableWrapper = posed.div({
-  expanded: { width: 'auto' },
-  contracted: { width: '-moz-min-content' },
-});
 
 export default class Search extends Component {
   static propTypes = {
@@ -65,12 +78,7 @@ export default class Search extends Component {
   }
 
   toggleExpanded() {
-    const { isMobile } = this.props;
-    const { expanded } = this.state;
-
-    if (!isMobile) return; // no need to toggle
-
-    this.setState(({ expanded: !expanded }));
+    this.setState(({ expanded }) => ({ expanded: !expanded }));
   }
 
   handleChange(event) {
@@ -84,16 +92,12 @@ export default class Search extends Component {
   render() {
     const { expanded, value } = this.state;
     return (
-      <Card borderRadius="3px">
-        <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden', borderRadius: 'inherit' }}>
-          <Layout>
-            <SearchIcon onClick={this.toggleExpanded}>
-              <MagnifyingGlass color="#1F1F20" />
-            </SearchIcon>
-            {expanded && <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />}
-          </Layout>
-        </ExpandableWrapper>
-      </Card>
+      <Layout pose={expanded ? 'expanded' : 'contracted'}>
+        <SearchIcon onClick={this.toggleExpanded}>
+          <MagnifyingGlass color="#1F1F20" />
+        </SearchIcon>
+        <Bar pose={expanded ? 'expanded' : 'contracted'} type="text" placeholder="Search" onChange={this.handleChange} value={value} />
+      </Layout>
     );
   }
 }

@@ -33,7 +33,7 @@ const GridTablet = styled.div`
   display: grid;
   grid-template-areas: 
     'left head head right'
-    'left rslt rslt right;
+    'left rslt rslt right';
   grid-auto-flow: row dense;
   grid-auto-columns: 1fr;
   grid-gap: 20px;

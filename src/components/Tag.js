@@ -12,6 +12,7 @@ const ExpandableWrapper = posed.div({
 
 const Layout = styled.div`
   display: grid;
+  grid-template-columns: 50px auto;
 `;
 
 const Horizontal = styled.div`
@@ -31,8 +32,6 @@ class TagHolder extends Component {
   static propTypes = {
     children: PropTypes.array,
     isMobile: PropTypes.bool,
-    onExpand: PropTypes.func.isRequired,
-    onContract: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -53,16 +52,7 @@ class TagHolder extends Component {
   }
 
   toggleExpanded() {
-    const { isMobile, onExpand, onContract } = this.props;
-    const { expanded } = this.state;
-
-    if (!isMobile) return; // no need to toggle
-
-    if (!expanded) onExpand();
-    else onContract();
-
-
-    this.setState(({ expanded: !expanded }));
+    this.setState(({ expanded }) => ({ expanded: !expanded }));
   }
 
   render() {
@@ -70,7 +60,7 @@ class TagHolder extends Component {
     const { expanded } = this.state;
     return (
       <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden' }}>
-        <Layout style={{ gridTemplateColumns: isMobile ? '50px auto' : 'auto' }}>
+        <Layout>
           {isMobile && <TagIcon onClick={this.toggleExpanded}><Stack /></TagIcon>}
           <Horizontal>
             {children}

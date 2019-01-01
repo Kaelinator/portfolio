@@ -3,15 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Card from './Card';
-
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 2fr 1fr;
   width: 100%;
   height: 200px;
-  border-radius: inherit;
+  border-radius: 5px;
   background-color: white;
+  import styled from 'styled-components';
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
 `;
 
 const Title = styled.h2`
@@ -48,12 +50,10 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .join(',');
 
 const Article = ({ title, subtitle, colors }) => (
-  <Card borderRadius="5px">
-    <Wrapper style={{ background: getBackground(colors) }}>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
-    </Wrapper>
-  </Card>
+  <Wrapper style={{ background: getBackground(colors) }}>
+    <Title>{title}</Title>
+    <Subtitle>{subtitle}</Subtitle>
+  </Wrapper>
 );
 
 Article.propTypes = {

@@ -6,10 +6,6 @@ import { Mobile, NotMobile } from './DeviceQueries';
 
 const Container = styled.div`
   display: grid;
-  grid-template-areas:
-    'name'
-    'tags'
-    'sbar';
   grid-gap: 20px;
   grid-template-rows: repeat(3, auto);
 `;
@@ -18,6 +14,7 @@ const Ribbon = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 const BannerLayout = ({ children }) => (

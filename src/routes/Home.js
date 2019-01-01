@@ -8,6 +8,7 @@ import Banner from '../components/Banner';
 import Article from '../components/Article';
 import HomeLayout from '../layouts/HomeLayout';
 import Search from '../components/Search';
+import { Tag, TagHolder } from '../components/Tag';
 
 const Item = posed.div();
 
@@ -51,6 +52,14 @@ export default class Home extends Component {
     };
 
     this.search = this.search.bind(this);
+    this.SearchBar = prop => <Search type="text" onSearch={this.search} {...prop} />;
+    this.TagHolder = prop => (
+      <TagHolder {...prop}>
+        <Tag color="#22DDEE" accent="#00BBCC">Coding</Tag>
+        <Tag color="#55EE22" accent="#33CC00">Creating</Tag>
+        <Tag color="#DEEE22" accent="#BCCC00">Running</Tag>
+      </TagHolder>
+    );
   }
 
   search(text) {
@@ -69,14 +78,7 @@ export default class Home extends Component {
         <HomeLayout>
           <PoseGroup>
             <div key="banner" style={{ gridArea: 'head' }}>
-              <Banner Search={
-                () => (
-                  <Search
-                    type="text"
-                    onSearch={this.search}
-                  />
-                )}
-              />
+              <Banner Search={this.SearchBar} TagHolder={this.TagHolder} />
             </div>
             {
               searching
