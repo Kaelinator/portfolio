@@ -5,16 +5,14 @@ import posed from 'react-pose';
 import styled from 'styled-components';
 
 import MagnifyingGlass from '../svg/MagnifyingGlass';
+import Card from './Card';
 
 const Layout = styled.div`
   display: grid;
   grid-template-columns: 50px auto;
-  border-radius: 3px;
+  border-radius: inherit;
   border: solid gray 1px;
   background: white;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
 `;
 
 const Bar = styled.input`
@@ -83,12 +81,14 @@ export default class Search extends Component {
   render() {
     const { expanded, value } = this.state;
     return (
-      <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden' }}>
-        <Layout>
-          <SearchIcon onClick={this.toggleExpanded}><MagnifyingGlass color="#1F1F20" /></SearchIcon>
-          <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />
-        </Layout>
-      </ExpandableWrapper>
+      <Card borderRadius="3px">
+        <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden', borderRadius: 'inherit' }}>
+          <Layout>
+            <SearchIcon onClick={this.toggleExpanded}><MagnifyingGlass color="#1F1F20" /></SearchIcon>
+            <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />
+          </Layout>
+        </ExpandableWrapper>
+      </Card>
     );
   }
 }

@@ -10,14 +10,12 @@ import { Tablet, Desktop, Mobile } from '../layouts/DeviceQueries';
 const Name = styled.h1`
   font-family: arial;
   text-align: center;
-  color: #1F1F20;
   font-size: 7em;
 `;
 
 const NameSmall = styled.h1`
   font-family: arial;
   text-align: center;
-  color: #1F1F20;
   font-size: 3em;
   margin: 0;
   padding: 0;

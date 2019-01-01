@@ -3,22 +3,23 @@ import posed, { PoseGroup } from 'react-pose';
 
 import styled from 'styled-components';
 
+import shuffle from 'array-shuffle';
 import Banner from '../components/Banner';
+import Article from '../components/Article';
 import HomeLayout from '../layouts/HomeLayout';
 
 const Item = posed.div();
 
-const Article = styled.div`
-  display: block;
-  border-radius: 4px;
-  background: red;
-  width: 100%;
-  height: 200px;
-`;
-
 const Wrapper = styled.div`
   background: #F9F9FA;
+  color: #1F1F20;
 `;
+
+const colorMap = {
+  coding: '#22DDEE',
+  creating: '#55EE22',
+  running: '#DEEE22',
+};
 
 export default class Home extends Component {
   state = {
@@ -26,7 +27,13 @@ export default class Home extends Component {
       .fill(0)
       .map((_, i) => ({
         id: i,
-        body: () => <Article>{i}</Article>,
+        title: 'Necessitatibuses voluptatem accusamus provident. Sit temporibus ea sint. Beatae tempora placeat laboriosam et alias magni. Non esse omnis velit sunt labore.',
+        subtitle: Array(5).fill(`This is article Necessitatibuses ${i}.`).join(''),
+        tags: shuffle(['coding', 'creating', 'running']).slice(1),
+      }))
+      .map(a => ({
+        ...a,
+        colors: a.tags.map(tag => colorMap[tag]),
       })),
   }
 
@@ -47,7 +54,13 @@ export default class Home extends Component {
         <HomeLayout>
           <PoseGroup>
             <div key="banner" style={{ gridArea: 'head' }}><Banner key="banner" style={{ gridArea: 'head' }} /></div>
-            {articles.map(({ id, body }) => <Item key={id}>{body()}</Item>)}
+            {
+              articles.map(article => (
+                <Item key={article.id}>
+                  <Article {...article} />
+                </Item>
+              ))
+            }
           </PoseGroup>
         </HomeLayout>
       </Wrapper>
