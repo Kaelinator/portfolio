@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import posed from 'react-pose';
+import { Link } from 'react-router-dom';
 
 const Wrapper = posed(styled.div`
   display: grid;
@@ -57,20 +58,26 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .map((direction, i) => `linear-gradient(${direction}, ${colors[i]}, rgba(0, 0, 0, 0))`)
   .join(',');
 
-const Article = ({ title, subtitle, colors }) => (
-  <Wrapper style={{ background: getBackground(colors) }}>
-    <Title>{title}</Title>
-    <Subtitle>{subtitle}</Subtitle>
-  </Wrapper>
+const Article = ({
+  id, title, subtitle, colors,
+}) => (
+  <Link to={`/${id}`}>
+    <Wrapper style={{ background: getBackground(colors) }}>
+      <Title>{title}</Title>
+      <Subtitle>{subtitle}</Subtitle>
+    </Wrapper>
+  </Link>
 );
 
 Article.propTypes = {
+  id: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   colors: PropTypes.array,
 };
 
 Article.defaultProps = {
+  id: 'not-found',
   title: '',
   subtitle: '',
   colors: [],

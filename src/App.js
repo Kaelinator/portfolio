@@ -8,6 +8,7 @@ import 'firebase/storage';
 
 import Home from './routes/Home';
 import Edit from './routes/Edit';
+import Article from './routes/Article';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCbxy9RWIUIUckXpRPea0zwlg1drezBtHs',
@@ -18,14 +19,12 @@ firebase.initializeApp({
   messagingSenderId: '441789742914',
 });
 
-const ToDo = () => <h1>Under construction</h1>;
-
 export default () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/edit" component={() => <Edit firebase={firebase} />} />
-      <Route path="/:articleId" component={ToDo} />
+      <Route path="/:articleId" component={Article} />
     </Switch>
   </BrowserRouter>
 );
