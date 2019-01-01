@@ -2,19 +2,27 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import posed from 'react-pose';
 
-const Wrapper = styled.div`
+const Wrapper = posed(styled.div`
   display: grid;
   grid-template-rows: 2fr 1fr;
   width: 100%;
   height: 200px;
   border-radius: 5px;
   background-color: white;
-  import styled from 'styled-components';
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-`;
+  cursor: pointer;
+`)({
+  pressable: true,
+  init: {
+    scale: 1,
+    boxShadow: '0px 0px 5px 0px rgba(50, 50, 50, 0.25)',
+  },
+  press: {
+    scale: 0.9,
+    boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0)',
+  },
+});
 
 const Title = styled.h2`
   font: 2em 'Open Sans', sans-serif;
