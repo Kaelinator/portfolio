@@ -11,6 +11,10 @@ const Title = styled.h1`
   font-size: 3em;
   font-family: 'Times New Roman', Times;
   margin-bottom: 0;
+  overflow-wrap: break-word;
+  width: 100%;
+  overflow: hidden;
+  hyphens: auto;
   grid-area: titl;
 `;
 

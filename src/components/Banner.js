@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import BannerLayout from '../layouts/BannerLayout';
-import { Tablet, Desktop, Mobile } from '../layouts/DeviceQueries';
+import { Mobile, Desktop, Tablet } from '../layouts/DeviceQueries';
 
 
 const Name = styled.h1`
   font-family: arial;
   text-align: center;
   font-size: 7em;
+  grid-area: name;
+`;
+
+const NameMedium = styled.h1`
+  font-family: arial;
+  text-align: center;
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+  grid-area: name;
 `;
 
 const NameSmall = styled.h1`
@@ -18,6 +28,8 @@ const NameSmall = styled.h1`
   font-size: 3em;
   margin: 0;
   padding: 0;
+  grid-area: name;
+  justify-self: end;
 `;
 
 export default class Banner extends Component {
@@ -39,13 +51,17 @@ export default class Banner extends Component {
           <Name>Kael Kirk</Name>
         </Desktop>
         <Tablet>
-          <NameSmall>Kael Kirk</NameSmall>
+          <NameMedium>Kael Kirk</NameMedium>
         </Tablet>
         <Mobile>
           <NameSmall>Kael</NameSmall>
         </Mobile>
-        <TagHolder />
-        <Search />
+        <div style={{ gridArea: 'tags' }}>
+          <TagHolder />
+        </div>
+        <div style={{ gridArea: 'srch', justifySelf: 'start' }}>
+          <Search style={{ background: 'red', gridArea: 'srch' }} />
+        </div>
       </BannerLayout>
     );
   }

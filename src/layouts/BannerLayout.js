@@ -5,16 +5,28 @@ import styled from 'styled-components';
 import { Mobile, NotMobile } from './DeviceQueries';
 
 const Container = styled.div`
+  grid-area: head;
   display: grid;
   grid-gap: 20px;
+  grid-template-areas:
+    'name'
+    'tags'
+    'srch';
   grid-template-rows: repeat(3, auto);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: baseline;
 `;
 
 const Ribbon = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  grid-area: head;
+  padding: 10px 10px 0 10px;
+  grid-row-gap: 5px;
+  display: grid;
+  grid-template-areas:
+    'srch name'
+    'tags tags';
+  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 `;
 
 const BannerLayout = ({ children }) => (

@@ -2,10 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import posed from 'react-pose';
 import { Link } from 'react-router-dom';
 
-const Wrapper = posed(styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 2fr 1fr;
   width: 100%;
@@ -13,17 +12,8 @@ const Wrapper = posed(styled.div`
   border-radius: 5px;
   background-color: white;
   cursor: pointer;
-`)({
-  pressable: true,
-  init: {
-    scale: 1,
-    boxShadow: '0px 0px 5px 0px rgba(50, 50, 50, 0.25)',
-  },
-  press: {
-    scale: 0.9,
-    boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0)',
-  },
-});
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+`;
 
 const Title = styled.h2`
   font: 2em 'Open Sans', sans-serif;
@@ -31,6 +21,7 @@ const Title = styled.h2`
   margin: 0;
   overflow: hidden;
   overflow-wrap: break-word;
+  hyphens: auto;
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 32px;     /* fallback */
@@ -45,6 +36,7 @@ const Subtitle = styled.p`
   margin: 0;
   overflow: hidden;
   word-break: break-all;
+  hyphens: auto;
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 16px;     /* fallback */

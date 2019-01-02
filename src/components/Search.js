@@ -28,8 +28,7 @@ const Bar = posed(styled.input`
   padding: 5px;
   font-size: 1em;
   color: #1F1F20;
-  flex-grow: 2;
-  flex-shrink: 0.5;
+  flex-grow: 5;
 `)({
   expanded: {
     applyAtStart: { display: 'block' },

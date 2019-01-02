@@ -35,7 +35,7 @@ export default class Home extends Component {
     const articles = Array(50)
       .fill(0)
       .map((_, i) => ({
-        id: Math.random(),
+        id: Math.random().toString(),
         title: 'Necessitatibuses voluptatem accusamus provident. Sit temporibus ea sint. Beatae tempora placeat laboriosam et alias magni. Non esse omnis velit sunt labore.',
         subtitle: Array(5).fill(`This is article Necessitatibuses ${i}.`).join(''),
         tags: shuffle(['coding', 'creating', 'running']).slice(1),
@@ -77,9 +77,7 @@ export default class Home extends Component {
       <Wrapper>
         <HomeLayout>
           <PoseGroup>
-            <div key="banner" style={{ gridArea: 'head' }}>
-              <Banner Search={this.SearchBar} TagHolder={this.TagHolder} />
-            </div>
+            <Banner key="banner" Search={this.SearchBar} TagHolder={this.TagHolder} />
             {
               searching
                 ? (

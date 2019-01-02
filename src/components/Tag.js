@@ -1,72 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import posed from 'react-pose';
-
-import Stack from '../svg/Stack';
-
-const ExpandableWrapper = posed.div({
-  expanded: { width: 'auto', height: 'auto' },
-  contracted: { width: 50, height: 50 },
-});
-
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: 50px auto;
-`;
 
 const Horizontal = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   justify-content: space-between;
+  margin-left: 0;
+  margin-right: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-const TagIcon = styled.span`
-  display: inline-block;
-  padding: 2px;
-  vertical-align: text-bottom;
-`;
 
 class TagHolder extends Component {
   static propTypes = {
     children: PropTypes.array,
-    isMobile: PropTypes.bool,
   };
 
   static defaultProps = {
     children: [],
-    isMobile: true,
   };
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    const expanded = !props.isMobile;
-
-    this.state = {
-      expanded,
-    };
-
-    this.toggleExpanded = this.toggleExpanded.bind(this);
-  }
-
-  toggleExpanded() {
-    this.setState(({ expanded }) => ({ expanded: !expanded }));
-  }
+  // }
 
   render() {
-    const { children, isMobile } = this.props;
-    const { expanded } = this.state;
+    const { children } = this.props;
     return (
-      <ExpandableWrapper pose={expanded ? 'expanded' : 'contracted'} style={{ overflow: 'hidden' }}>
-        <Layout>
-          {isMobile && <TagIcon onClick={this.toggleExpanded}><Stack /></TagIcon>}
-          <Horizontal>
-            {children}
-          </Horizontal>
-        </Layout>
-      </ExpandableWrapper>
+      <Horizontal>
+        {children}
+      </Horizontal>
     );
   }
 }
@@ -78,6 +47,17 @@ const Wrapper = styled.span`
   border-style: solid;
   border-width: 2px;
   text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-shrink: 0;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 const Tag = ({ color, accent, children }) => (
