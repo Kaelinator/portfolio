@@ -19,7 +19,6 @@ const Container = styled.div`
 
 const Ribbon = styled.div`
   grid-area: head;
-  padding: 10px 10px 0 10px;
   grid-row-gap: 5px;
   display: grid;
   grid-template-areas:

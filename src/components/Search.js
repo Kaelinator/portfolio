@@ -13,32 +13,26 @@ const Layout = posed(styled.div`
   border: solid gray 1px;
   border-radius: 3px;
   background: white;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
   box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
+  overflow: hidden;
 `)({
-  expanded: { width: 'auto' },
-  contracted: { width: 50 },
+  expanded: {
+    width: '100%',
+  },
+  contracted: {
+    width: 50,
+  },
 });
 
-const Bar = posed(styled.input`
+const Bar = styled.input`
   border: none;
   vertical-align: text-bottom;
   margin-right: 5px;
   padding: 5px;
   font-size: 1em;
   color: #1F1F20;
-  flex-grow: 5;
-`)({
-  expanded: {
-    applyAtStart: { display: 'block' },
-    width: 'auto',
-  },
-  contracted: {
-    applyAtEnd: { display: 'none' },
-    width: 0,
-  },
-});
+  width: 100%;
+`;
 
 const SearchIcon = styled.button`
   vertical-align: text-bottom;
@@ -95,7 +89,7 @@ export default class Search extends Component {
         <SearchIcon onClick={this.toggleExpanded}>
           <MagnifyingGlass color="#1F1F20" />
         </SearchIcon>
-        <Bar pose={expanded ? 'expanded' : 'contracted'} type="text" placeholder="Search" onChange={this.handleChange} value={value} />
+        <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />
       </Layout>
     );
   }

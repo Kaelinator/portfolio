@@ -59,8 +59,8 @@ export default class Banner extends Component {
         <div style={{ gridArea: 'tags' }}>
           <TagHolder />
         </div>
-        <div style={{ gridArea: 'srch', justifySelf: 'start' }}>
-          <Search style={{ background: 'red', gridArea: 'srch' }} />
+        <div style={{ gridArea: 'srch', width: '100%' }}>
+          <Search />
         </div>
       </BannerLayout>
     );
