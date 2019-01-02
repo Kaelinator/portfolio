@@ -6,9 +6,9 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-import Home from './routes/Home';
-import Edit from './routes/Edit';
-import Article from './routes/Article';
+import Home from './routes/Home/Home';
+import Edit from './routes/Edit/Edit';
+import Article from './routes/Article/Article';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCbxy9RWIUIUckXpRPea0zwlg1drezBtHs',

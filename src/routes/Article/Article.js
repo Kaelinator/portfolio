@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Markdown from 'react-markdown';
 
-import ArticleLayout from '../layouts/ArticleLayout';
-import { Tag } from '../components/Tag';
+import ArticleLayout from './ArticleLayout';
+import { Tag } from '../../components/Tag';
 
 const Title = styled.h1`
   font-size: 3em;

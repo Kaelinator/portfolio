@@ -4,11 +4,11 @@ import posed, { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
 import shuffle from 'array-shuffle';
-import Banner from '../components/Banner';
-import Article from '../components/Article';
-import HomeLayout from '../layouts/HomeLayout';
-import Search from '../components/Search';
-import { Tag, TagHolder } from '../components/Tag';
+import Banner from '../../components/Banner/Banner';
+import Article from '../../components/Article/Article';
+import HomeLayout from './HomeLayout';
+import Search from '../../components/Search';
+import { Tag, TagHolder } from '../../components/Tag';
 
 const Item = posed.div();
 

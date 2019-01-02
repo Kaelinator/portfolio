@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import {
   DesktopSmall, DesktopLarge, Tablet, Mobile,
-} from './DeviceQueries';
+} from '../../components/DeviceQueries';
 
 const GridLarge = styled.div`
   display: grid;

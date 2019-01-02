@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import BannerLayout from '../layouts/BannerLayout';
-import { Mobile, Desktop, Tablet } from '../layouts/DeviceQueries';
+import BannerLayout from './BannerLayout';
+import { Mobile, Desktop, Tablet } from '../DeviceQueries';
 
 
 const Name = styled.h1`

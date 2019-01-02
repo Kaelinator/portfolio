@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import { Desktop, Tablet, Mobile } from './DeviceQueries';
+import { Desktop, Tablet, Mobile } from '../../components/DeviceQueries';
 
 const WrapperLarge = styled.div`
   display: grid;
