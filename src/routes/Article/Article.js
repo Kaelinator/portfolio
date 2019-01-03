@@ -6,7 +6,7 @@ import Markdown from 'react-markdown';
 
 import ArticleLayout from './ArticleLayout';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
-import { Tag } from '../../components/Tag';
+import Tag from '../../components/Tag/Tag';
 
 const Title = styled.h1`
   font-size: 3em;

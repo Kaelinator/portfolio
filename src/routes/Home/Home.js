@@ -8,7 +8,8 @@ import Banner from '../../components/Banner/Banner';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import HomeLayout from './HomeLayout';
 import Search from '../../components/Search';
-import { Tag, TagHolder } from '../../components/Tag';
+import Tag from '../../components/Tag/Tag';
+import TagHolder from '../../components/Tag/TagHolder';
 
 const Item = posed.div();
 
@@ -22,12 +23,6 @@ const Results = styled.div`
   grid-gap: 20px;
 `;
 
-const colorMap = {
-  coding: '#22DDEE',
-  creating: '#55EE22',
-  running: '#DEEE22',
-};
-
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -38,11 +33,7 @@ export default class Home extends Component {
         id: Math.random().toString(),
         title: 'Necessitatibuses voluptatem accusamus provident. Sit temporibus ea sint. Beatae tempora placeat laboriosam et alias magni. Non esse omnis velit sunt labore.',
         subtitle: Array(5).fill(`This is article Necessitatibuses ${i}.`).join(''),
-        tags: shuffle(['coding', 'creating', 'running']).slice(1),
-      }))
-      .map(a => ({
-        ...a,
-        colors: a.tags.map(tag => colorMap[tag]),
+        tags: shuffle(['Coding', 'Creating', 'Running']).slice(Math.floor(Math.random() * 2) + 1),
       }));
 
     this.state = {
@@ -55,9 +46,9 @@ export default class Home extends Component {
     this.SearchBar = prop => <Search type="text" onSearch={this.search} {...prop} />;
     this.TagHolder = prop => (
       <TagHolder {...prop}>
-        <Tag color="#22DDEE" accent="#00BBCC">Coding</Tag>
-        <Tag color="#55EE22" accent="#33CC00">Creating</Tag>
-        <Tag color="#DEEE22" accent="#BCCC00">Running</Tag>
+        <Tag tag="Coding" />
+        <Tag tag="Running" />
+        <Tag tag="Creating" />
       </TagHolder>
     );
   }

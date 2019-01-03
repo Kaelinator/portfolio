@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { TagContext } from '../Tag/TagProvider';
 
 const Wrapper = styled.div`
   display: grid;
@@ -51,28 +52,32 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .join(',');
 
 const ArticleCard = ({
-  id, title, subtitle, colors,
+  id, title, subtitle, tags,
 }) => (
-  <Link to={`/${id}`}>
-    <Wrapper style={{ background: getBackground(colors) }}>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
-    </Wrapper>
-  </Link>
+  <TagContext.Consumer>
+    {({ colorsOf }) => (
+      <Link to={`/${id}`}>
+        <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+        </Wrapper>
+      </Link>
+    )}
+  </TagContext.Consumer>
 );
 
 ArticleCard.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  colors: PropTypes.array,
+  tags: PropTypes.array,
 };
 
 ArticleCard.defaultProps = {
   id: 'not-found',
   title: '',
   subtitle: '',
-  colors: [],
+  tags: [],
 };
 
 export default ArticleCard;

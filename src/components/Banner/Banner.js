@@ -40,11 +40,6 @@ export default class Banner extends Component {
     TagHolder: PropTypes.func.isRequired,
   }
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
-
   render() {
     const { Search, TagHolder } = this.props;
     return (

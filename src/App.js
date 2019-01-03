@@ -7,6 +7,7 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 import { ResponsiveProvider } from './components/DeviceQueries';
+import { TagProvider } from './components/Tag/TagProvider';
 
 import Home from './routes/Home/Home';
 import Edit from './routes/Edit/Edit';
@@ -23,12 +24,14 @@ firebase.initializeApp({
 
 export default () => (
   <ResponsiveProvider>
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/edit" component={() => <Edit firebase={firebase} />} />
-        <Route path="/:articleId" component={Article} />
-      </Switch>
-    </BrowserRouter>
+    <TagProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/edit" component={() => <Edit firebase={firebase} />} />
+          <Route path="/:articleId" component={Article} />
+        </Switch>
+      </BrowserRouter>
+    </TagProvider>
   </ResponsiveProvider>
 );
