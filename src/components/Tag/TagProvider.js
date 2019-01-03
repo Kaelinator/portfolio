@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const getDataFrom = tags => tag => tags.find(e => e.tag === tag) || {};
-const getColorsFrom = tags => (
-  articleTags => tags
-    .filter(({ tag }) => articleTags.includes(tag))
-    .reduce((arr, { color, accent }) => [color, ...arr, accent], [])
-);
+const getColorsFrom = tags => articleTags => tags
+  .filter(({ tag }) => articleTags.includes(tag))
+  .reduce((arr, { color, accent }) => [color, ...arr, accent], []);
 
 const defaultState = {
   tags: [],
