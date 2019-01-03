@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import shuffle from 'array-shuffle';
 import Banner from '../../components/Banner/Banner';
-import Article from '../../components/Article/Article';
+import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import HomeLayout from './HomeLayout';
 import Search from '../../components/Search';
 import { Tag, TagHolder } from '../../components/Tag';
@@ -88,7 +88,7 @@ export default class Home extends Component {
                           ? <h2>No articles found</h2>
                           : visibleArticles.map(article => (
                             <Item key={article.id}>
-                              <Article {...article} />
+                              <ArticleCard {...article} />
                             </Item>
                           ))
                   }
@@ -97,7 +97,7 @@ export default class Home extends Component {
                 )
                 : visibleArticles.map(article => (
                   <Item key={article.id}>
-                    <Article {...article} />
+                    <ArticleCard {...article} />
                   </Item>
                 ))
             }

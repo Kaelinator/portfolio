@@ -6,6 +6,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
+import { ResponsiveProvider } from './components/DeviceQueries';
+
 import Home from './routes/Home/Home';
 import Edit from './routes/Edit/Edit';
 import Article from './routes/Article/Article';
@@ -20,11 +22,13 @@ firebase.initializeApp({
 });
 
 export default () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/edit" component={() => <Edit firebase={firebase} />} />
-      <Route path="/:articleId" component={Article} />
-    </Switch>
-  </BrowserRouter>
+  <ResponsiveProvider>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/edit" component={() => <Edit firebase={firebase} />} />
+        <Route path="/:articleId" component={Article} />
+      </Switch>
+    </BrowserRouter>
+  </ResponsiveProvider>
 );

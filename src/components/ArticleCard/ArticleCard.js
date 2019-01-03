@@ -50,7 +50,7 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .map((direction, i) => `linear-gradient(${direction}, ${colors[i]}, rgba(0, 0, 0, 0))`)
   .join(',');
 
-const Article = ({
+const ArticleCard = ({
   id, title, subtitle, colors,
 }) => (
   <Link to={`/${id}`}>
@@ -61,18 +61,18 @@ const Article = ({
   </Link>
 );
 
-Article.propTypes = {
+ArticleCard.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   colors: PropTypes.array,
 };
 
-Article.defaultProps = {
+ArticleCard.defaultProps = {
   id: 'not-found',
   title: '',
   subtitle: '',
   colors: [],
 };
 
-export default Article;
+export default ArticleCard;

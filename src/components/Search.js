@@ -48,18 +48,18 @@ const SearchIcon = styled.button`
 
 export default class Search extends Component {
   static propTypes = {
-    isMobile: PropTypes.bool,
+    contracted: PropTypes.bool,
     onSearch: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
-    isMobile: true,
+    contracted: true,
   }
 
   constructor(props) {
     super(props);
 
-    const expanded = !props.isMobile;
+    const expanded = !props.contracted;
 
     this.state = {
       expanded,
@@ -71,7 +71,13 @@ export default class Search extends Component {
   }
 
   toggleExpanded() {
-    this.setState(({ expanded }) => ({ expanded: !expanded }));
+    const { onSearch } = this.props;
+    const { expanded, value } = this.state;
+
+    if (expanded) onSearch('');
+    else onSearch(value);
+
+    this.setState({ expanded: !expanded });
   }
 
   handleChange(event) {

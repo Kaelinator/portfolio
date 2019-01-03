@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import BannerLayout from './BannerLayout';
-import { Mobile, Desktop, Tablet } from '../DeviceQueries';
+import {
+  Mobile, Desktop, Tablet, ResponsiveContext,
+} from '../DeviceQueries';
 
 
 const Name = styled.h1`
@@ -60,7 +62,11 @@ export default class Banner extends Component {
           <TagHolder />
         </div>
         <div style={{ gridArea: 'srch', width: '100%' }}>
-          <Search />
+          <ResponsiveContext.Consumer>
+            {
+              ({ isMobile }) => <Search contracted={isMobile} />
+            }
+          </ResponsiveContext.Consumer>
         </div>
       </BannerLayout>
     );

@@ -25,6 +25,7 @@ const WrapperMedium = styled.div`
     'left text right'
     'left foot right';
   grid-template-columns: 3fr 10fr 3fr;
+  padding: 10px;
 `;
 
 const FillWrapper = styled.div`
@@ -35,6 +36,7 @@ const FillWrapper = styled.div`
     'subt'
     'text'
     'foot';
+  padding: 10px;
 `;
 
 const ArticleLayout = (props) => {
