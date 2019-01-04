@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { TagContext } from './TagProvider';
 
 
-const Wrapper = styled.span`
+const Wrapper = styled.button`
   border-radius: 4px;
   padding: 2px;
   font-family: arial;
@@ -24,22 +25,59 @@ const Wrapper = styled.span`
   }
 `;
 
-const Tag = ({ tag }) => (
-  <TagContext.Consumer>
-    {({ dataOf }) => (
-      <Wrapper style={{ backgroundColor: dataOf(tag).color, borderColor: dataOf(tag).accent }}>
-        {tag}
-      </Wrapper>
-    )}
-  </TagContext.Consumer>
-);
+export default class Tag extends Component {
+  static propTypes = {
+    tag: PropTypes.string,
+    clickable: PropTypes.bool,
+    onClick: PropTypes.func,
+  };
 
-Tag.propTypes = {
-  tag: PropTypes.string,
-};
+  static defaultProps = {
+    tag: '',
+    clickable: false,
+    onClick: () => {},
+  };
 
-Tag.defaultProps = {
-  tag: '',
-};
+  state = {
+    active: true,
+  }
 
-export default Tag;
+  constructor(props) {
+    super(props);
+
+    this.toggleActive = this.toggleActive.bind(this);
+  }
+
+  toggleActive() {
+    const { clickable, onClick } = this.props;
+    const { active } = this.state;
+
+    if (!clickable) return;
+
+    onClick(!active);
+    this.setState({ active: !active });
+  }
+
+  render() {
+    const { tag, clickable } = this.props;
+    const { active } = this.state;
+
+    const cursor = { cursor: clickable ? 'pointer' : 'context-menu' };
+
+    return (
+      <TagContext.Consumer>
+        {({ dataOf }) => (
+          <Wrapper
+            onClick={this.toggleActive}
+            style={active
+              ? { backgroundColor: dataOf(tag).color, borderColor: dataOf(tag).accent, ...cursor }
+              : cursor
+            }
+          >
+            {tag}
+          </Wrapper>
+        )}
+      </TagContext.Consumer>
+    );
+  }
+}

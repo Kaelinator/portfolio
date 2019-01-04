@@ -8,7 +8,6 @@ import Banner from '../../components/Banner/Banner';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import HomeLayout from './HomeLayout';
 import Search from '../../components/Search';
-import Tag from '../../components/Tag/Tag';
 import TagHolder from '../../components/Tag/TagHolder';
 
 const Item = posed.div();
@@ -43,19 +42,32 @@ export default class Home extends Component {
     };
 
     this.search = this.search.bind(this);
+    this.filter = this.filter.bind(this);
     this.SearchBar = prop => <Search type="text" onSearch={this.search} {...prop} />;
     this.TagHolder = prop => (
-      <TagHolder {...prop}>
-        <Tag tag="Coding" />
-        <Tag tag="Running" />
-        <Tag tag="Creating" />
-      </TagHolder>
+      <TagHolder tags={['Coding', 'Running', 'Creating']} onStatusChange={this.filter} {...prop} />
     );
+  }
+
+  filter(activeTags) {
+    const activeTagsString = activeTags
+      .filter(({ active }) => active)
+      .map(({ tag }) => tag)
+      .join();
+
+    const { articles } = this.state;
+    const visibleArticles = articles
+      .filter(({ tags }) => tags.some(tag => activeTagsString.includes(tag)));
+
+    this.setState({
+      visibleArticles,
+    });
   }
 
   search(text) {
     const { articles } = this.state;
-    const visibleArticles = articles.filter(({ title }) => title.includes(text));
+    const visibleArticles = articles
+      .filter(({ title }) => title.includes(text));
     this.setState({
       visibleArticles,
       searching: !!(text.length),
