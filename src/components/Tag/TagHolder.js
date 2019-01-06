@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Tag from './Tag';
+import { TagContext } from './TagProvider';
 
 const Horizontal = styled.div`
 display: flex;
@@ -18,7 +19,7 @@ scrollbar-width: none;
 `;
 
 
-export default class TagHolder extends Component {
+class TagHolder extends Component {
   static propTypes = {
     tags: PropTypes.array,
     onStatusChange: PropTypes.func,
@@ -80,3 +81,9 @@ export default class TagHolder extends Component {
     );
   }
 }
+
+export default props => (
+  <TagContext.Consumer>
+    {({ tags }) => <TagHolder tags={tags.map(({ tag }) => tag)} {...props} />}
+  </TagContext.Consumer>
+);

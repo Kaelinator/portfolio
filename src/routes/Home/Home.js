@@ -44,9 +44,7 @@ export default class Home extends Component {
     this.search = this.search.bind(this);
     this.filter = this.filter.bind(this);
     this.SearchBar = prop => <Search type="text" onSearch={this.search} {...prop} />;
-    this.TagHolder = prop => (
-      <TagHolder tags={['Coding', 'Running', 'Creating']} onStatusChange={this.filter} {...prop} />
-    );
+    this.TagHolder = prop => <TagHolder onStatusChange={this.filter} {...prop} />;
   }
 
   filter(activeTags) {
