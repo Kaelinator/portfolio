@@ -3,11 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 
-import Home from '../routes/Home';
-import Banner from '../components/Banner';
+import Edit from '../routes/Edit/Edit';
 
-storiesOf('Home', module)
-  .add('desktop layout', () => <Home />);
-
-storiesOf('Banner', module)
-  .add('desktop layout', () => <Banner />);
+storiesOf('Edit', module)
+  .add('edit layout', () => <Edit />);

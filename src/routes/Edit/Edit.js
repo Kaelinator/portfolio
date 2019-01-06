@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 import EditLayout from './EditLayout';
-
-const Status = styled.div`
-  grid-area: status;
-`;
+import SignOut from '../../components/SignOut';
+import Tag from '../../components/Tag/Tag';
 
 export default class Edit extends Component {
   render() {
     return (
       <EditLayout>
-        <Status>Edit</Status>
+        <div style={{ gridArea: 'status' }}>
+          <SignOut />
+        </div>
+        <div style={{ gridArea: 'tags' }}>
+          <Tag />
+        </div>
       </EditLayout>
     );
   }

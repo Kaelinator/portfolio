@@ -34,34 +34,46 @@ export default class TagHolder extends Component {
     const { tags } = this.props;
 
     this.state = {
-      tags: tags.map(tag => ({ tag, active: true })),
+      statuses: Array(tags.length).fill(true),
     };
 
     this.onStatusChange = this.onStatusChange.bind(this);
   }
 
   onStatusChange(tagIndex) {
-    const { onStatusChange } = this.props;
-    return (active) => {
-      const { tags } = this.state;
-      const updatedTags = [
-        ...tags.slice(0, tagIndex),
-        { tag: tags[tagIndex].tag, active },
-        ...tags.slice(tagIndex + 1),
+    return () => {
+      const { onStatusChange, tags } = this.props;
+      const { statuses } = this.state;
+
+      const updatedStatuses = [
+        ...statuses.slice(0, tagIndex),
+        !statuses[tagIndex],
+        ...statuses.slice(tagIndex + 1),
       ];
 
-      onStatusChange(updatedTags);
-      this.setState({ tags: updatedTags });
+      const activeTags = updatedStatuses
+        .filter(active => active)
+        .map((_, i) => tags[i]);
+
+      onStatusChange(activeTags);
+      this.setState({ statuses: updatedStatuses });
     };
   }
 
   render() {
     const { tags } = this.props;
+    const { statuses } = this.state;
     return (
       <Horizontal>
         {
           tags.map((tag, i) => (
-            <Tag tag={tag} key={tag} onClick={this.onStatusChange(i)} clickable />
+            <Tag
+              tag={tag}
+              key={tag}
+              onClick={this.onStatusChange(i)}
+              active={statuses[i]}
+              clickable
+            />
           ))
         }
       </Horizontal>

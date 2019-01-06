@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 import { Redirect } from 'react-router-dom';
 
 export default class SignIn extends Component {
   static propTypes = {
-    firebase: PropTypes.object.isRequired,
     location: PropTypes.object,
   }
 
@@ -29,7 +31,6 @@ export default class SignIn extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    const { firebase } = this.props;
     const { email, password } = this.state;
 
     firebase.auth()

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import { Desktop } from '../../components/DeviceQueries';
+// import { Desktop } from '../../components/DeviceQueries';
 
 const WrapperLarge = styled.div`
   display: grid;
@@ -16,9 +16,9 @@ const WrapperLarge = styled.div`
 
 const EditLayout = ({ children }) => (
   <>
-    <Desktop>
-      <WrapperLarge>{children}</WrapperLarge>
-    </Desktop>
+    {/* <Desktop> */}
+    <WrapperLarge>{children}</WrapperLarge>
+    {/* </Desktop> */}
   </>
 );
 

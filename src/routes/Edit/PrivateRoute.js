@@ -5,6 +5,8 @@ import { Route, Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import Loading from '../../components/Loading';
+
 export default class PrivateRoute extends React.Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
@@ -13,27 +15,27 @@ export default class PrivateRoute extends React.Component {
   constructor(props) {
     super(props);
 
-    const unsubscribe = firebase.auth()
+    const authChangeUnsub = firebase.auth()
       .onAuthStateChanged(user => this.setState({ signedIn: !!user, loading: false }));
 
     this.state = {
-      signedIn: firebase.auth().currentUser !== null,
+      signedIn: false,
       loading: true,
-      unsubscribe,
+      authChangeUnsub,
     };
   }
 
 
   componentWillUnmount() {
-    const { unsubscribe } = this.state;
-    unsubscribe();
+    const { authChangeUnsub } = this.state;
+    authChangeUnsub();
   }
 
   render() {
     const { component: Component, ...rest } = this.props;
     const { signedIn, loading } = this.state;
 
-    if (loading) return <h1>Loading</h1>;
+    if (loading) return <Loading />;
 
     return (
       <Route

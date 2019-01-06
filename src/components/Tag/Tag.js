@@ -29,38 +29,33 @@ export default class Tag extends Component {
   static propTypes = {
     tag: PropTypes.string,
     clickable: PropTypes.bool,
+    active: PropTypes.bool,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
     tag: '',
+    active: true,
     clickable: false,
     onClick: () => {},
   };
 
-  state = {
-    active: true,
-  }
-
   constructor(props) {
     super(props);
 
-    this.toggleActive = this.toggleActive.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  toggleActive() {
+  handleClick() {
     const { clickable, onClick } = this.props;
-    const { active } = this.state;
 
     if (!clickable) return;
 
-    onClick(!active);
-    this.setState({ active: !active });
+    onClick();
   }
 
   render() {
-    const { tag, clickable } = this.props;
-    const { active } = this.state;
+    const { tag, clickable, active } = this.props;
 
     const cursor = { cursor: clickable ? 'pointer' : 'context-menu' };
 
@@ -68,7 +63,7 @@ export default class Tag extends Component {
       <TagContext.Consumer>
         {({ dataOf }) => (
           <Wrapper
-            onClick={this.toggleActive}
+            onClick={this.handleClick}
             style={active
               ? { backgroundColor: dataOf(tag).color, borderColor: dataOf(tag).accent, ...cursor }
               : cursor

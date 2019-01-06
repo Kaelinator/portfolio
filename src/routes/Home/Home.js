@@ -50,10 +50,7 @@ export default class Home extends Component {
   }
 
   filter(activeTags) {
-    const activeTagsString = activeTags
-      .filter(({ active }) => active)
-      .map(({ tag }) => tag)
-      .join();
+    const activeTagsString = activeTags.join();
 
     const { articles } = this.state;
     const visibleArticles = articles
