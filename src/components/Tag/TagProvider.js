@@ -31,7 +31,10 @@ export class TagProvider extends Component {
     const tagRefUnsub = firestore
       .collection('tags')
       .onSnapshot((snap) => {
-        const tags = snap.docs.map(doc => doc.data());
+        const tags = snap.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
         this.setState({
           ...initializeState(tags),

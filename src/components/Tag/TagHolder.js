@@ -54,7 +54,7 @@ class TagHolder extends Component {
 
       const activeTags = updatedStatuses
         .filter(active => active)
-        .map((_, i) => tags[i]);
+        .map((_, i) => tags[i].tag);
 
       onStatusChange(activeTags);
       this.setState({ statuses: updatedStatuses });
@@ -67,10 +67,10 @@ class TagHolder extends Component {
     return (
       <Horizontal>
         {
-          tags.map((tag, i) => (
+          tags.map(({ tag, id }, i) => (
             <Tag
               tag={tag}
-              key={tag}
+              key={id}
               onClick={this.onStatusChange(i)}
               active={statuses[i]}
               clickable
@@ -84,6 +84,6 @@ class TagHolder extends Component {
 
 export default props => (
   <TagContext.Consumer>
-    {({ tags }) => <TagHolder tags={tags.map(({ tag }) => tag)} {...props} />}
+    {({ tags }) => <TagHolder tags={tags.map(({ tag, id }) => ({ tag, id }))} {...props} />}
   </TagContext.Consumer>
 );
