@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "array-shuffle": "^1.0.1",
     "firebase": "^5.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",

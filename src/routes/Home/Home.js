@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import posed, { PoseGroup } from 'react-pose';
 
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import styled from 'styled-components';
 
-import shuffle from 'array-shuffle';
 import Banner from '../../components/Banner/Banner';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import HomeLayout from './HomeLayout';
@@ -23,28 +25,43 @@ const Results = styled.div`
 `;
 
 export default class Home extends Component {
+  state ={
+    articles: [],
+    visibleArticles: [],
+    searching: false,
+  }
+
   constructor(props) {
     super(props);
 
-    const articles = Array(50)
-      .fill(0)
-      .map((_, i) => ({
-        id: Math.random().toString(),
-        title: 'Necessitatibuses voluptatem accusamus provident. Sit temporibus ea sint. Beatae tempora placeat laboriosam et alias magni. Non esse omnis velit sunt labore.',
-        subtitle: Array(5).fill(`This is article Necessitatibuses ${i}.`).join(''),
-        tags: shuffle(['Coding', 'Creating', 'Running']).slice(Math.floor(Math.random() * 2) + 1),
-      }));
-
-    this.state = {
-      articles,
-      visibleArticles: articles,
-      searching: false,
-    };
-
     this.search = this.search.bind(this);
     this.filter = this.filter.bind(this);
+
     this.SearchBar = prop => <Search type="text" onSearch={this.search} {...prop} />;
     this.TagHolder = prop => <TagHolder onStatusChange={this.filter} {...prop} />;
+  }
+
+  componentDidMount() {
+    const firestore = firebase.firestore();
+    firestore.settings({ timestampsInSnapshots: true });
+
+    const articleRefUnsub = firestore
+      .collection('articles')
+      .onSnapshot((snap) => {
+        const articles = snap.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        this.setState({ articles, visibleArticles: articles });
+      });
+
+    this.setState({ articleRefUnsub });
+  }
+
+  componentWillUnmount() {
+    const { articleRefUnsub } = this.state;
+
+    articleRefUnsub();
   }
 
   filter(activeTags) {
