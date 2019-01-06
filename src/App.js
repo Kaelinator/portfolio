@@ -1,10 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
+import {
+  BrowserRouter, Switch, Route,
+} from 'react-router-dom';
 
 import { ResponsiveProvider } from './components/DeviceQueries';
 import { TagProvider } from './components/Tag/TagProvider';
@@ -12,15 +9,8 @@ import { TagProvider } from './components/Tag/TagProvider';
 import Home from './routes/Home/Home';
 import Edit from './routes/Edit/Edit';
 import Article from './routes/Article/Article';
-
-firebase.initializeApp({
-  apiKey: 'AIzaSyCbxy9RWIUIUckXpRPea0zwlg1drezBtHs',
-  authDomain: 'portfolio-5e3de.firebaseapp.com',
-  databaseURL: 'https://portfolio-5e3de.firebaseio.com',
-  projectId: 'portfolio-5e3de',
-  storageBucket: 'portfolio-5e3de.appspot.com',
-  messagingSenderId: '441789742914',
-});
+import SignIn from './routes/SignIn';
+import PrivateRoute from './routes/Edit/PrivateRoute';
 
 export default () => (
   <ResponsiveProvider>
@@ -28,7 +18,8 @@ export default () => (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/edit" component={() => <Edit firebase={firebase} />} />
+          <PrivateRoute path="/edit" component={Edit} />
+          <Route path="/login" component={props => <SignIn {...props} />} />
           <Route path="/:articleId" component={Article} />
         </Switch>
       </BrowserRouter>
