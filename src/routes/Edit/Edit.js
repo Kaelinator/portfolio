@@ -4,6 +4,8 @@ import EditLayout from './EditLayout';
 import SignOut from '../../components/SignOut';
 import { TagContext } from '../../components/Tag/TagProvider';
 import EditTag from '../../components/Edit/EditTag';
+import { ArticleContext } from '../../components/Article/ArticleProvider';
+import EditArticle from '../../components/Edit/EditArticle';
 
 export default class Edit extends Component {
   render() {
@@ -16,6 +18,10 @@ export default class Edit extends Component {
         <TagContext.Consumer>
           { ({ tags }) => <EditTag tags={tags} /> }
         </TagContext.Consumer>
+
+        <ArticleContext.Consumer>
+          { articles => <EditArticle articles={articles} /> }
+        </ArticleContext.Consumer>
       </EditLayout>
     );
   }

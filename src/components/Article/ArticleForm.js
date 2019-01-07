@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Text, Label, Submit, Color, Section, ActionRow, Header,
+  Form, Header, ActionRow, Submit,
 } from '../Form/Form';
 
-export default class TagForm extends Component {
+export default class ArticleForm extends Component {
   static propTypes = {
+    url: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
     id: PropTypes.string,
-    color: PropTypes.string,
-    accent: PropTypes.string,
-    name: PropTypes.string,
+    visible: PropTypes.bool,
+    tags: PropTypes.array,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
   }
 
   static defaultProps = {
     id: null,
-    color: '#999999',
-    accent: '#444444',
-    name: '',
-  }
+    visible: true,
+    tags: [],
+    title: '',
+    subtitle: '',
+  };
 
   constructor(props) {
     super(props);
 
     const {
-      color, accent, name, id,
+      url, visible, tags, title, subtitle, id,
     } = this.props;
 
     this.state = {
-      color, accent, name, id,
+      url, visible, tags, title, subtitle, id,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,24 +61,9 @@ export default class TagForm extends Component {
   }
 
   render() {
-    const { color, accent, name } = this.state;
     return (
       <Form onSubmit={e => e.preventDefault()}>
-
-        <Header>Edit Tag</Header>
-
-        <Section>
-          <Label htmlFor="color">Color:</Label>
-          <Color type="color" id="color" value={color} onChange={this.handleChange} />
-
-          <Label htmlFor="accent">Accent:</Label>
-          <Color type="color" id="accent" value={accent} onChange={this.handleChange} />
-        </Section>
-
-        <div>
-          <Label htmlFor="name">Tag:</Label>
-          <Text type="text" id="name" value={name} onChange={this.handleChange} autoFocus />
-        </div>
+        <Header>Edit Article</Header>
 
         <ActionRow>
           <Submit type="submit" value="Cancel" onClick={this.cancel} />

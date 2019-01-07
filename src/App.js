@@ -11,18 +11,21 @@ import Edit from './routes/Edit/Edit';
 import Article from './routes/Article/Article';
 import SignIn from './routes/SignIn';
 import PrivateRoute from './routes/Edit/PrivateRoute';
+import ArticleProvider from './components/Article/ArticleProvider';
 
 export default () => (
   <ResponsiveProvider>
-    <TagProvider>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <PrivateRoute path="/edit" component={Edit} />
-          <Route path="/login" component={props => <SignIn {...props} />} />
-          <Route path="/:articleId" component={Article} />
-        </Switch>
-      </BrowserRouter>
-    </TagProvider>
+    <ArticleProvider>
+      <TagProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <PrivateRoute path="/edit" component={Edit} />
+            <Route path="/login" component={props => <SignIn {...props} />} />
+            <Route path="/:articleId" component={Article} />
+          </Switch>
+        </BrowserRouter>
+      </TagProvider>
+    </ArticleProvider>
   </ResponsiveProvider>
 );

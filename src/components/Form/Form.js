@@ -70,3 +70,8 @@ export const Section = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
+
+export const Header = styled.h1`
+  font-size: 2em;
+  font-family: arial;
+`;

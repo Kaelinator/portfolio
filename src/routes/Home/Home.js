@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import posed, { PoseGroup } from 'react-pose';
-
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
+import { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
 import Banner from '../../components/Banner/Banner';
-import ArticleCard from '../../components/ArticleCard/ArticleCard';
+import ArticleCard from '../../components/Article/ArticleCard';
 import HomeLayout from './HomeLayout';
 import Search from '../../components/Search';
 import TagHolder from '../../components/Tag/TagHolder';
-
-const Item = posed.div();
 
 const Wrapper = styled.div`
   color: #1F1F20;
@@ -25,7 +19,7 @@ const Results = styled.div`
 `;
 
 export default class Home extends Component {
-  state ={
+  state = {
     articles: [],
     visibleArticles: [],
     searching: false,
@@ -39,29 +33,6 @@ export default class Home extends Component {
 
     this.SearchBar = prop => <Search type="text" onSearch={this.search} {...prop} />;
     this.TagHolder = prop => <TagHolder onStatusChange={this.filter} {...prop} />;
-  }
-
-  componentDidMount() {
-    const firestore = firebase.firestore();
-    firestore.settings({ timestampsInSnapshots: true });
-
-    const articleRefUnsub = firestore
-      .collection('articles')
-      .onSnapshot((snap) => {
-        const articles = snap.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        this.setState({ articles, visibleArticles: articles });
-      });
-
-    this.setState({ articleRefUnsub });
-  }
-
-  componentWillUnmount() {
-    const { articleRefUnsub } = this.state;
-
-    articleRefUnsub();
   }
 
   filter(activeTags) {
@@ -96,24 +67,20 @@ export default class Home extends Component {
             {
               searching
                 ? (
-                  <Item key="results" style={{ gridArea: 'rslt' }}>
+                  <div key="results" style={{ gridArea: 'rslt' }}>
                     <Results>
                       {
                         visibleArticles.length === 0
                           ? <h2>No articles found</h2>
                           : visibleArticles.map(article => (
-                            <Item key={article.id}>
-                              <ArticleCard {...article} />
-                            </Item>
+                            <ArticleCard key={article.id} {...article} />
                           ))
                   }
                     </Results>
-                  </Item>
+                  </div>
                 )
                 : visibleArticles.map(article => (
-                  <Item key={article.id}>
-                    <ArticleCard {...article} />
-                  </Item>
+                  <ArticleCard {...article} />
                 ))
             }
           </PoseGroup>

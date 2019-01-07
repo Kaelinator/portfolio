@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: tags;
+  overflow-y: auto;
 `;
 
 const Button = styled.button`
