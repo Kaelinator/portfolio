@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
-import { PoseGroup } from 'react-pose';
+
 import styled from 'styled-components';
 
 import Banner from '../../components/Banner/Banner';
-import ArticleCard from '../../components/Article/ArticleCard';
 import HomeLayout from './HomeLayout';
 import Search from '../../components/Search';
 import TagHolder from '../../components/Tag/TagHolder';
+import { ArticleContext } from '../../components/Article/ArticleProvider';
+import Results from './ArticleDisplay';
 
 const Wrapper = styled.div`
   color: #1F1F20;
 `;
 
-const Results = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 20px;
-`;
-
 export default class Home extends Component {
   state = {
-    articles: [],
-    visibleArticles: [],
-    searching: false,
+    search: '',
+    tags: [],
   }
 
   constructor(props) {
@@ -35,55 +29,23 @@ export default class Home extends Component {
     this.TagHolder = prop => <TagHolder onStatusChange={this.filter} {...prop} />;
   }
 
-  filter(activeTags) {
-    const activeTagsString = activeTags.join();
-
-    const { articles } = this.state;
-    const visibleArticles = articles
-      .filter(({ tags }) => tags.some(tag => activeTagsString.includes(tag)));
-
-    this.setState({
-      visibleArticles,
-    });
+  search(search) {
+    this.setState({ search });
   }
 
-  search(text) {
-    const { articles } = this.state;
-    const visibleArticles = articles
-      .filter(({ title }) => title.includes(text));
-    this.setState({
-      visibleArticles,
-      searching: !!(text.length),
-    });
+  filter(tags) {
+    this.setState({ tags });
   }
 
   render() {
-    const { visibleArticles, searching } = this.state;
+    const { search, tags } = this.state;
     return (
       <Wrapper>
         <HomeLayout>
-          <PoseGroup>
-            <Banner key="banner" Search={this.SearchBar} TagHolder={this.TagHolder} />
-            {
-              searching
-                ? (
-                  <div key="results" style={{ gridArea: 'rslt' }}>
-                    <Results>
-                      {
-                        visibleArticles.length === 0
-                          ? <h2>No articles found</h2>
-                          : visibleArticles.map(article => (
-                            <ArticleCard key={article.id} {...article} />
-                          ))
-                  }
-                    </Results>
-                  </div>
-                )
-                : visibleArticles.map(article => (
-                  <ArticleCard {...article} />
-                ))
-            }
-          </PoseGroup>
+          <Banner key="banner" Search={this.SearchBar} TagHolder={this.TagHolder} />
+          <ArticleContext.Consumer key="articles">
+            { articles => <Results articles={articles} search={search} tags={tags} /> }
+          </ArticleContext.Consumer>
         </HomeLayout>
       </Wrapper>
     );

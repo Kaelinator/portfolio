@@ -11,7 +11,7 @@ import Edit from './routes/Edit/Edit';
 import Article from './routes/Article/Article';
 import SignIn from './routes/SignIn';
 import PrivateRoute from './routes/Edit/PrivateRoute';
-import ArticleProvider from './components/Article/ArticleProvider';
+import ArticleProvider, { ArticleContext } from './components/Article/ArticleProvider';
 
 export default () => (
   <ResponsiveProvider>
@@ -19,7 +19,9 @@ export default () => (
       <TagProvider>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <ArticleContext.Consumer>
+              {articles => <Route exact path="/" component={Home} articles={articles} />}
+            </ArticleContext.Consumer>
             <PrivateRoute path="/edit" component={Edit} />
             <Route path="/login" component={props => <SignIn {...props} />} />
             <Route path="/:articleId" component={Article} />

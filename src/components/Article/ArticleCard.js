@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import posed from 'react-pose';
-
 import { Link } from 'react-router-dom';
 import { TagContext } from '../Tag/TagProvider';
 
-const Item = posed.div();
 
 const Wrapper = styled.div`
   display: grid;
@@ -57,18 +54,16 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
 const ArticleCard = ({
   url, title, subtitle, tags,
 }) => (
-  <Item>
-    <TagContext.Consumer>
-      {({ colorsOf }) => (
-        <Link to={`/${url}`}>
-          <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
-            <Title>{title}</Title>
-            <Subtitle>{subtitle}</Subtitle>
-          </Wrapper>
-        </Link>
-      )}
-    </TagContext.Consumer>
-  </Item>
+  <TagContext.Consumer>
+    {({ colorsOf }) => (
+      <Link to={`/${url}`}>
+        <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+        </Wrapper>
+      </Link>
+    )}
+  </TagContext.Consumer>
 );
 
 ArticleCard.propTypes = {
