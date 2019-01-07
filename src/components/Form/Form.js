@@ -52,6 +52,17 @@ export const Text = styled.input`
   padding: 5px;
 `;
 
+export const TextArea = styled.textarea`
+  resize: none;
+  font: 1em arial;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.4);
+  padding: 5px;
+  margin: 5px;
+  border: none;
+`;
+
 export const Color = styled.input`
   margin: 5px;
   border: none;

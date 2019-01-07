@@ -77,7 +77,7 @@ export default class EditArticle extends Component {
             />
           ))}
           <div style={{ margin: '3px' }}>
-            <Button type="button" onEdit={this.editArticle}>New Article</Button>
+            <Button type="button" onClick={this.editArticle}>New Article</Button>
           </div>
         </Wrapper>
       </ModalManager>

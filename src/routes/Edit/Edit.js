@@ -36,7 +36,7 @@ export default class Edit extends Component {
           { articles => <EditArticle articles={articles} onArticleFocus={this.setFocusArticle} /> }
         </ArticleContext.Consumer>
 
-        <FocusArticle {...focus} />
+        { focus && <FocusArticle {...focus} />}
       </EditLayout>
     );
   }

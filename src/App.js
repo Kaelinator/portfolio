@@ -11,7 +11,7 @@ import Edit from './routes/Edit/Edit';
 import Article from './routes/Article/Article';
 import SignIn from './routes/SignIn';
 import PrivateRoute from './routes/Edit/PrivateRoute';
-import ArticleProvider, { ArticleContext } from './components/Article/ArticleProvider';
+import ArticleProvider from './components/Article/ArticleProvider';
 
 export default () => (
   <ResponsiveProvider>

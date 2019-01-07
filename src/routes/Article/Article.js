@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Markdown from 'react-markdown';
 
+import firebase from 'firebase/app';
+import 'firebase/storage';
+
 import ArticleLayout from './ArticleLayout';
 import ArticleCard from '../../components/Article/ArticleCard';
 import Tag from '../../components/Tag/Tag';
@@ -41,11 +44,11 @@ const Related = styled.div`
 
 export default class Article extends Component {
   static propTypes = {
-    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
   }
 
   state = {
-    markdown: Array(100).fill('This is my markdown!').join(' '),
+    markdown: '',
     tags: [
       <Tag key={2} color="#22DDEE" accent="#00BBCC">Coding</Tag>,
       <Tag key={3} color="#55EE22" accent="#33CC00">Creating</Tag>,
@@ -58,6 +61,25 @@ export default class Article extends Component {
         id: 'article 1', title: 'Article no.2', subtitle: 'related', colors: ['#999', '#444'],
       },
     ],
+  }
+
+  componentDidMount() {
+    const { location } = this.props;
+    const { id } = location.state;
+    if (!id) return;
+
+    const assetsRef = firebase.storage().ref().child(id);
+
+    const markdownRef = assetsRef.child('body.md');
+
+    const reader = new FileReader();
+    reader.addEventListener('loadend', e => this.setState({ markdown: e.srcElement.result }));
+
+    markdownRef.getDownloadURL()
+      .then(url => fetch(url))
+      .then(res => res.blob())
+      .then(blob => reader.readAsText(blob))
+      .catch(({ code }) => console.log(code));
   }
 
   render() {

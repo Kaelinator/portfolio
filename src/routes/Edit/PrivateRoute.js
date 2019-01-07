@@ -15,14 +15,17 @@ export default class PrivateRoute extends React.Component {
   constructor(props) {
     super(props);
 
-    const authChangeUnsub = firebase.auth()
-      .onAuthStateChanged(user => this.setState({ signedIn: !!user, loading: false }));
-
     this.state = {
       signedIn: false,
       loading: true,
-      authChangeUnsub,
     };
+  }
+
+  componentDidMount() {
+    const authChangeUnsub = firebase.auth()
+      .onAuthStateChanged(user => this.setState({ signedIn: !!user, loading: false }));
+
+    this.setState({ authChangeUnsub });
   }
 
 

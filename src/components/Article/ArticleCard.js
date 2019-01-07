@@ -52,11 +52,11 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .join(',');
 
 const ArticleCard = ({
-  url, title, subtitle, tags,
+  url, title, subtitle, tags, id,
 }) => (
   <TagContext.Consumer>
     {({ colorsOf }) => (
-      <Link to={`/${url}`}>
+      <Link to={{ pathname: `/${url}`, state: { id } }}>
         <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
           <Title>{title}</Title>
           <Subtitle>{subtitle}</Subtitle>
@@ -67,6 +67,7 @@ const ArticleCard = ({
 );
 
 ArticleCard.propTypes = {
+  id: PropTypes.string.isRequired,
   url: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
