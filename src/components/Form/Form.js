@@ -34,6 +34,11 @@ export const Submit = styled.input`
     background-color: #fc4447;
     color: white;
   }
+
+  &.info {
+    background-color: #6af0ff;
+    color: white;
+  }
 `;
 
 export const Text = styled.input`

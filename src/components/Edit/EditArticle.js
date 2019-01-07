@@ -24,6 +24,7 @@ const Button = styled.button`
 
 export default class EditArticle extends Component {
   static propTypes = {
+    onArticleFocus: PropTypes.func.isRequired,
     articles: PropTypes.array,
   }
 
@@ -62,16 +63,21 @@ export default class EditArticle extends Component {
   }
 
   render() {
-    const { articles } = this.props;
+    const { articles, onArticleFocus } = this.props;
     const { modal, modalVisible } = this.state;
     return (
       <ModalManager visible={modalVisible} modal={modal}>
         <Wrapper>
           {articles.map(article => (
-            <ArticleItem key={article.id} onClick={() => this.editArticle(article)} {...article} />
+            <ArticleItem
+              key={article.id}
+              onEdit={() => this.editArticle(article)}
+              onWrite={() => onArticleFocus(article)}
+              {...article}
+            />
           ))}
           <div style={{ margin: '3px' }}>
-            <Button type="button" onClick={this.editArticle}>New Article</Button>
+            <Button type="button" onEdit={this.editArticle}>New Article</Button>
           </div>
         </Wrapper>
       </ModalManager>

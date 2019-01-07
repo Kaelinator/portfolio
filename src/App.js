@@ -19,9 +19,7 @@ export default () => (
       <TagProvider>
         <BrowserRouter>
           <Switch>
-            <ArticleContext.Consumer>
-              {articles => <Route exact path="/" component={Home} articles={articles} />}
-            </ArticleContext.Consumer>
+            <Route exact path="/" component={Home} />
             <PrivateRoute path="/edit" component={Edit} />
             <Route path="/login" component={props => <SignIn {...props} />} />
             <Route path="/:articleId" component={Article} />
