@@ -12,6 +12,8 @@ import ArticleLayout from './ArticleLayout';
 import ArticleCard from '../../components/Article/ArticleCard';
 import Tag from '../../components/Tag/Tag';
 
+import 'github-markdown-css';
+
 const Title = styled.h1`
   font-size: 3em;
   font-family: 'Times New Roman', Times;
@@ -105,7 +107,7 @@ export default class Article extends Component {
           tags.map(tag => <Tag id={tag} />)
           }
         </Tags>
-        <Body><Markdown source={markdown} /></Body>
+        <Body className="markdown-body"><Markdown source={markdown} /></Body>
         <Related>
           {
             related.map(({ id, ...article }) => <ArticleCard key={id} {...article} />)
