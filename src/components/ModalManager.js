@@ -6,14 +6,10 @@ import posed, { PoseGroup } from 'react-pose';
 
 const Popup = posed(styled.div`
   position: absolute;
-  width: 500px;
-  height: 300px;
-  background: white;
+  background: #F9F9FA;
   border-radius: 10px;
   display: grid;
-  grid-template-areas:
-    'title close'
-    'modal modal';
+  transform: translate(50%, 50%);
 `)({
   enter: {
     y: 0,
@@ -38,6 +34,9 @@ const Shade = posed(styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `)({
   enter: { opacity: 1 },
   exit: { opacity: 0 },
@@ -61,12 +60,9 @@ export default class ModalManager extends Component {
       <>
         {children}
         <PoseGroup>
-          {
-          visible && [
-            <Shade key="shade" />,
-            <Popup key="popup">{modal}</Popup>,
-          ]
-        }
+          { visible && [
+            <Shade key="shade"><Popup>{modal}</Popup></Shade>,
+          ]}
         </PoseGroup>
       </>
     );

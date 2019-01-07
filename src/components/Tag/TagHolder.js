@@ -6,16 +6,24 @@ import Tag from './Tag';
 import { TagContext } from './TagProvider';
 
 const Horizontal = styled.div`
-display: flex;
-justify-content: space-between;
-margin-left: 0;
-margin-right: 0;
-overflow-x: auto;
-scrollbar-width: none;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 0;
+  margin-right: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 
-&::-webkit-scrollbar {
-  display: none;
-}
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > button:first-child {
+    margin-left: 0;
+  }
+
+  & > button:last-child {
+    margin-right: 0;
+  }
 `;
 
 
@@ -54,7 +62,7 @@ class TagHolder extends Component {
 
       const activeTags = updatedStatuses
         .filter(active => active)
-        .map((_, i) => tags[i].tag);
+        .map((_, i) => tags[i].id);
 
       onStatusChange(activeTags);
       this.setState({ statuses: updatedStatuses });
@@ -67,9 +75,9 @@ class TagHolder extends Component {
     return (
       <Horizontal>
         {
-          tags.map(({ tag, id }, i) => (
+          tags.map(({ id }, i) => (
             <Tag
-              tag={tag}
+              id={id}
               key={id}
               onClick={this.onStatusChange(i)}
               active={statuses[i]}

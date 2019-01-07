@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-const getDataFrom = tags => tag => tags.find(e => e.tag === tag) || {};
+const getDataFrom = tags => id => tags.find(e => e.id === id) || {};
 const getColorsFrom = tags => articleTags => tags
-  .filter(({ tag }) => articleTags.includes(tag))
+  .filter(({ id }) => articleTags.includes(id))
   .reduce((arr, { color, accent }) => [color, ...arr, accent], []);
 
 const initializeState = tags => ({

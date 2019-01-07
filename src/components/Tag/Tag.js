@@ -12,29 +12,19 @@ const Wrapper = styled.button`
   border-style: solid;
   border-width: 2px;
   text-align: center;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px;
   flex-shrink: 0;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
 `;
 
 export default class Tag extends Component {
   static propTypes = {
-    tag: PropTypes.string,
+    id: PropTypes.string.isRequired,
     clickable: PropTypes.bool,
     active: PropTypes.bool,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
-    tag: '',
     active: true,
     clickable: false,
     onClick: () => {},
@@ -55,23 +45,26 @@ export default class Tag extends Component {
   }
 
   render() {
-    const { tag, clickable, active } = this.props;
+    const { id, clickable, active } = this.props;
 
     const cursor = { cursor: clickable ? 'pointer' : 'context-menu' };
 
     return (
       <TagContext.Consumer>
-        {({ dataOf }) => (
-          <Wrapper
-            onClick={this.handleClick}
-            style={active
-              ? { backgroundColor: dataOf(tag).color, borderColor: dataOf(tag).accent, ...cursor }
-              : cursor
+        {({ dataOf }) => {
+          const { color, accent, name } = dataOf(id);
+          return (
+            <Wrapper
+              onClick={this.handleClick}
+              style={active
+                ? { backgroundColor: color, borderColor: accent, ...cursor }
+                : cursor
             }
-          >
-            {tag}
-          </Wrapper>
-        )}
+            >
+              {name}
+            </Wrapper>
+          );
+        }}
       </TagContext.Consumer>
     );
   }
