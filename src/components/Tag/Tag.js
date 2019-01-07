@@ -61,7 +61,7 @@ export default class Tag extends Component {
                 : cursor
             }
             >
-              {name}
+              {name || <span>&nbsp;</span>}
             </Wrapper>
           );
         }}

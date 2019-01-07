@@ -22,8 +22,7 @@ const Button = styled.button`
   border-style: solid;
   border-width: 2px;
   text-align: center;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px;
   cursor: pointer;
 `;
 
