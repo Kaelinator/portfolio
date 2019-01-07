@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -14,6 +15,7 @@ firebase.initializeApp({
   storageBucket: 'portfolio-5e3de.appspot.com',
   messagingSenderId: '441789742914',
 });
+firebase.firestore().settings({ timestampsInSnapshots: true });
 
 ReactDOM.render(
   <App />,

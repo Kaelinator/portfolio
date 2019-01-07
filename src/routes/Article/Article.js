@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Markdown from 'react-markdown';
 
 import firebase from 'firebase/app';
+import 'firebase/firestore';
 import 'firebase/storage';
 
 import ArticleLayout from './ArticleLayout';
@@ -33,6 +34,14 @@ const Subtitle = styled.h2`
 
 const Tags = styled.div`
   grid-area: tags;
+
+  & > button:first-child {
+    margin-left: 0;
+  }
+
+  & > button:last-child {
+    margin-right: 0;
+  }
 `;
 
 const Related = styled.div`
@@ -48,19 +57,11 @@ export default class Article extends Component {
   }
 
   state = {
-    markdown: '',
-    tags: [
-      <Tag key={2} color="#22DDEE" accent="#00BBCC">Coding</Tag>,
-      <Tag key={3} color="#55EE22" accent="#33CC00">Creating</Tag>,
-    ],
-    related: [
-      {
-        id: 'article 0', title: 'Article no.1', subtitle: 'related', colors: ['#999', '#444'],
-      },
-      {
-        id: 'article 1', title: 'Article no.2', subtitle: 'related', colors: ['#999', '#444'],
-      },
-    ],
+    markdown: 'loading',
+    title: 'loading',
+    subtitle: 'loading',
+    tags: [],
+    related: [],
   }
 
   componentDidMount() {
@@ -68,9 +69,18 @@ export default class Article extends Component {
     const { id } = location.state;
     if (!id) return;
 
-    const assetsRef = firebase.storage().ref().child(id);
+    firebase.firestore()
+      .collection('articles')
+      .doc(id)
+      .get()
+      .then(doc => doc.data())
+      .then(({ title, subtitle, tags }) => this.setState({ title, subtitle, tags }))
+      .catch(() => this.setState({
+        title: '404: Article not found',
+        subtitle: '',
+      }));
 
-    const markdownRef = assetsRef.child('body.md');
+    const markdownRef = firebase.storage().ref().child(id).child('body.md');
 
     const reader = new FileReader();
     reader.addEventListener('loadend', e => this.setState({ markdown: e.srcElement.result }));
@@ -79,17 +89,22 @@ export default class Article extends Component {
       .then(url => fetch(url))
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
-      .catch(({ code }) => console.log(code));
+      .catch(err => this.setState({ markdown: `Error! \`${err.code}\`\n\`\`\`${err.message}\`\`\`` }));
   }
 
   render() {
-    const { match } = this.props;
-    const { markdown, tags, related } = this.state;
+    const {
+      markdown, tags, related, title, subtitle,
+    } = this.state;
     return (
       <ArticleLayout>
-        <Title>{`Article ${match.params.articleId}`}</Title>
-        <Subtitle>{`You had better believe that this is article ${match.params.articleId}`}</Subtitle>
-        <Tags>{tags}</Tags>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
+        <Tags>
+          {
+          tags.map(tag => <Tag id={tag} />)
+          }
+        </Tags>
         <Body><Markdown source={markdown} /></Body>
         <Related>
           {

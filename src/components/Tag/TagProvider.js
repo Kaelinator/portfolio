@@ -26,7 +26,6 @@ export class TagProvider extends Component {
 
   componentDidMount() {
     const firestore = firebase.firestore();
-    firestore.settings({ timestampsInSnapshots: true });
 
     const tagRefUnsub = firestore
       .collection('tags')
