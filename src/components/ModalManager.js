@@ -9,6 +9,7 @@ const Popup = posed(styled.div`
   background: #F9F9FA;
   border-radius: 10px;
   display: grid;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.4);
   transform: translate(50%, 50%);
 `)({
   enter: {
@@ -29,7 +30,7 @@ const Popup = posed(styled.div`
 
 const Shade = posed(styled.div`
   position: absolute;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, ${({ noShade }) => (noShade ? 0 : 0.8)});
   top: 0;
   left: 0;
   right: 0;
@@ -47,21 +48,25 @@ export default class ModalManager extends Component {
     children: PropTypes.object.isRequired,
     modal: PropTypes.object.isRequired,
     visible: PropTypes.bool,
+    noShade: PropTypes.bool,
   }
 
   static defaultProps = {
     visible: false,
+    noShade: false,
   }
 
   render() {
-    const { children, modal, visible } = this.props;
+    const {
+      children, modal, visible, noShade,
+    } = this.props;
 
     return (
       <>
         {children}
         <PoseGroup>
           { visible && [
-            <Shade key="shade"><Popup>{modal}</Popup></Shade>,
+            <Shade key="shade" noShade={noShade}><Popup>{modal}</Popup></Shade>,
           ]}
         </PoseGroup>
       </>
