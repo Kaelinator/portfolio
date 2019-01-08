@@ -6,6 +6,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 
 import { TextArea, Label } from '../Form/Form';
+import EditAsset from './EditAsset';
 
 const Heading = styled.div`
   grid-area: article;
@@ -16,6 +17,13 @@ const Heading = styled.div`
 
 const Title = styled.h1`
   font-size: 2em;
+  font-family: arial;
+  margin: 0;
+  margin-right: 10px;
+`;
+
+const Subtitle = styled.h2`
+  font-size: 1.5em;
   font-family: arial;
   margin: 0;
   margin-right: 10px;
@@ -100,12 +108,13 @@ export default class FocusArticle extends Component {
         </Heading>
 
         <Body>
-          <Label htmlFor="markdown"><Title>Body</Title></Label>
+          <Label htmlFor="markdown"><Subtitle>Body</Subtitle></Label>
           <TextArea id="markdown" onChange={this.handleChange} value={markdown} disabled={!markdownLoaded} />
         </Body>
 
         <Assets>
-          {}
+          <Subtitle>Assets</Subtitle>
+          <EditAsset />
         </Assets>
       </>
     );
