@@ -66,10 +66,18 @@ export default class Article extends Component {
     related: [],
   }
 
+  constructor(props) {
+    super(props);
+
+    this.emptyArticle = this.emptyArticle.bind(this);
+  }
+
   componentDidMount() {
     const { location } = this.props;
+    if (!location.state) { this.emptyArticle(); return; }
+
     const { id } = location.state;
-    if (!id) return;
+    if (!id) { this.emptyArticle(); return; }
 
     firebase.firestore()
       .collection('articles')
@@ -77,10 +85,7 @@ export default class Article extends Component {
       .get()
       .then(doc => doc.data())
       .then(({ title, subtitle, tags }) => this.setState({ title, subtitle, tags }))
-      .catch(() => this.setState({
-        title: '404: Article not found',
-        subtitle: '',
-      }));
+      .catch(this.emptyArticle);
 
     const markdownRef = firebase.storage().ref().child(id).child('body.md');
 
@@ -92,6 +97,14 @@ export default class Article extends Component {
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
       .catch(err => this.setState({ markdown: `Error! \`${err.code}\`\n\`\`\`${err.message}\`\`\`` }));
+  }
+
+  emptyArticle() {
+    this.setState({
+      title: '404: Article not found',
+      subtitle: '',
+      markdown: '',
+    });
   }
 
   render() {
