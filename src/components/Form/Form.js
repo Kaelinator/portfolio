@@ -75,6 +75,28 @@ export const Color = styled.input`
   cursor: pointer;
 `;
 
+export const Checkbox = styled.input`
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.2);
+`;
+
+export const Select = styled.select`
+  overflow-y: auto;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.4);
+  padding: 5px;
+  margin: 5px;
+  border: none;
+`;
+
+export const Option = styled.option`
+  overflow-y: auto;
+
+  &:selected {
+    background: red;
+  }
+`;
+
 export const Label = styled.label`
   margin: 5px;
   font-family: inherit;

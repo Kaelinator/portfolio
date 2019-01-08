@@ -35,11 +35,13 @@ const match = (articles, search) => {
 const render = articles => (
   <PoseGroup>
     {
-      articles.map(article => (
-        <Item key={article.id}>
-          <ArticleCard {...article} />
-        </Item>
-      ))
+      articles
+        .filter(({ visible }) => visible)
+        .map(article => (
+          <Item key={article.id}>
+            <ArticleCard {...article} />
+          </Item>
+        ))
     }
   </PoseGroup>
 );

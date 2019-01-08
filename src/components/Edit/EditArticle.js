@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import ArticleItem from '../Article/ArticleItem';
 import ModalManager from '../ModalManager';
 import ArticleForm from '../Article/ArticleForm';
@@ -45,8 +49,28 @@ export default class EditArticle extends Component {
     this.editArticle = this.editArticle.bind(this);
   }
 
-  submitArticle() {
-    this.toggleModal();
+  submitArticle({ id, ...article }) {
+    if (article.cancel) return this.toggleModal();
+
+    const articles = firebase.firestore().collection('articles');
+
+    if (!id) {
+      return articles.add(article)
+        .then(() => this.toggleModal())
+        .catch(err => console.log('Error creating article', err));
+    }
+
+    const articleRef = articles.doc(id);
+
+    if (article.delete) {
+      return articleRef.delete()
+        .then(() => this.toggleModal())
+        .catch(err => console.log('Error deleting article', err));
+    }
+
+    return articleRef.set(article)
+      .then(() => this.toggleModal())
+      .catch(err => console.log('Error updating article', err));
   }
 
   editArticle(article) {
