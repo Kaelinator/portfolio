@@ -29,6 +29,11 @@ const Subtitle = styled.h2`
   margin-right: 10px;
 `;
 
+const Small = styled.small`
+  color: green;
+  font-weight: bold;
+`;
+
 const Body = styled.form`
   grid-area: body;
   display: grid;
@@ -113,7 +118,7 @@ export default class FocusArticle extends Component {
       <>
         <Heading>
           <Title>{title}</Title>
-          {bodySaved && <small>Saved</small>}
+          {bodySaved && <Small>Saved</Small>}
         </Heading>
 
         <Body>
