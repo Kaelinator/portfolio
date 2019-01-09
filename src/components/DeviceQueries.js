@@ -25,7 +25,7 @@ export const ResponsiveContext = React.createContext({
 
 export class ResponsiveProvider extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
   }
 
   state = {

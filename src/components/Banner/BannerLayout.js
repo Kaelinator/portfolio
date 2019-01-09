@@ -40,7 +40,7 @@ const BannerLayout = ({ children }) => (
 );
 
 BannerLayout.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.node,
 };
 
 BannerLayout.defaultProps = {

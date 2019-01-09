@@ -7,7 +7,7 @@ export const ArticleContext = React.createContext([]);
 
 export default class ArticleProvider extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
   }
 
   state = {

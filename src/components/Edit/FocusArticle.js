@@ -51,9 +51,10 @@ export default class FocusArticle extends Component {
   };
 
   state = {
-    markdown: '',
-    markdownLoaded: false,
+    body: '',
+    bodyLoaded: false,
     bodySaved: false,
+    bodyUploadTask: null,
   }
 
   constructor(props) {
@@ -70,36 +71,43 @@ export default class FocusArticle extends Component {
 
     const assetsRef = firebase.storage().ref().child(id);
 
-    const markdownRef = assetsRef.child('body.md');
+    const bodyRef = assetsRef.child('body.md');
 
     const reader = new FileReader();
-    reader.addEventListener('loadend', e => this.setState({ markdown: e.srcElement.result, markdownLoaded: true }));
+    reader.addEventListener('loadend', e => this.setState({ body: e.srcElement.result, bodyLoaded: true }));
 
-    markdownRef.getDownloadURL()
+    bodyRef.getDownloadURL()
       .then(url => fetch(url))
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
-      .catch(({ code }) => console.log(code));
+      .catch(({ code }) => (
+        (code === 'storage/object-not-found'
+          ? this.setState({ body: '', bodyLoaded: true })
+          : console.log(code))
+      ));
   }
 
   handleChange(event) {
-    const markdown = event.target.value;
+    const body = event.target.value;
+    const { bodyUploadTask } = this.state;
     const { id } = this.props;
     if (!id) return;
 
-    const markdownRef = firebase.storage().ref().child(id).child('body.md');
+    const blob = new Blob([body], { type: 'text/markdown' });
 
-    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const bodyRef = firebase.storage().ref().child(id).child('body.md');
 
-    markdownRef.put(blob, { contentType: 'text/markdown' })
-      .then(() => this.setState({ bodySaved: true }));
+    bodyUploadTask.cancel();
 
-    this.setState({ markdown, bodySaved: false });
+    const newUploadTask = bodyRef.put(blob, { contentType: 'text/markdown' })
+      .then(() => console.log('done!') || this.setState({ bodySaved: true }));
+
+    this.setState({ body, bodyUploadTask: newUploadTask, bodySaved: false });
   }
 
   render() {
     const { title } = this.props;
-    const { markdown, markdownLoaded, bodySaved } = this.state;
+    const { body, bodyLoaded, bodySaved } = this.state;
     return (
       <>
         <Heading>
@@ -108,8 +116,8 @@ export default class FocusArticle extends Component {
         </Heading>
 
         <Body>
-          <Label htmlFor="markdown"><Subtitle>Body</Subtitle></Label>
-          <TextArea id="markdown" onChange={this.handleChange} value={markdown} disabled={!markdownLoaded} />
+          <Label htmlFor="body"><Subtitle>Body</Subtitle></Label>
+          <TextArea id="body" onChange={this.handleChange} value={body} disabled={!bodyLoaded} />
         </Body>
 
         <Assets>

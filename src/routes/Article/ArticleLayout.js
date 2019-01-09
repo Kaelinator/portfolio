@@ -57,7 +57,7 @@ const ArticleLayout = (props) => {
 };
 
 ArticleLayout.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ArticleLayout;

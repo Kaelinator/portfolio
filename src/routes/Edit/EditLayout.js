@@ -25,7 +25,7 @@ const EditLayout = ({ children }) => (
 );
 
 EditLayout.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.node,
 };
 
 EditLayout.defaultProps = {

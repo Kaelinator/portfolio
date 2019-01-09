@@ -45,13 +45,14 @@ const Shade = posed(styled.div`
 
 export default class ModalManager extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
     modal: PropTypes.object.isRequired,
+    children: PropTypes.node,
     visible: PropTypes.bool,
     noShade: PropTypes.bool,
   }
 
   static defaultProps = {
+    children: [],
     visible: false,
     noShade: false,
   }

@@ -19,7 +19,7 @@ export const TagContext = React.createContext(initializeState([]));
 
 export class TagProvider extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
   }
 
   state = initializeState([])

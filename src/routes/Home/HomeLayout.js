@@ -70,7 +70,7 @@ const HomeLayout = ({ children }) => (
 );
 
 HomeLayout.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.node,
 };
 
 HomeLayout.defaultProps = {
