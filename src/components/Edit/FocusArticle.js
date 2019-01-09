@@ -90,6 +90,9 @@ export default class FocusArticle extends Component {
   handleChange(event) {
     const body = event.target.value;
     const { bodyUploadTask } = this.state;
+
+    if (bodyUploadTask) bodyUploadTask.cancel(); // Don't upload two docs at same time
+
     const { id } = this.props;
     if (!id) return;
 
@@ -97,10 +100,8 @@ export default class FocusArticle extends Component {
 
     const bodyRef = firebase.storage().ref().child(id).child('body.md');
 
-    bodyUploadTask.cancel();
-
-    const newUploadTask = bodyRef.put(blob, { contentType: 'text/markdown' })
-      .then(() => console.log('done!') || this.setState({ bodySaved: true }));
+    const newUploadTask = bodyRef.put(blob, { contentType: 'text/markdown' });
+    newUploadTask.then(() => this.setState({ bodySaved: true }));
 
     this.setState({ body, bodyUploadTask: newUploadTask, bodySaved: false });
   }
