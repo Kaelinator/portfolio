@@ -120,7 +120,7 @@ export default class Article extends Component {
           tags.map(tag => <Tag id={tag} />)
           }
         </Tags>
-        <Body className="markdown-body"><Markdown source={markdown} /></Body>
+        <Body className="markdown-body"><Markdown source={markdown} escapeHtml={false} /></Body>
         <Related>
           {
             related.map(({ id, ...article }) => <ArticleCard key={id} {...article} />)
