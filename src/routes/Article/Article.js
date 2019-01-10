@@ -12,8 +12,6 @@ import ArticleLayout from './ArticleLayout';
 import ArticleCard from '../../components/Article/ArticleCard';
 import Tag from '../../components/Tag/Tag';
 
-import 'github-markdown-css';
-
 const Title = styled.h1`
   font-size: 3em;
   font-family: 'Times New Roman', Times;
@@ -55,37 +53,45 @@ const Related = styled.div`
 
 export default class Article extends Component {
   static propTypes = {
-    location: PropTypes.object.isRequired,
-  }
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    subtitle: PropTypes.string,
+    markdown: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    related: PropTypes.array,
+  };
 
-  state = {
-    markdown: 'loading',
-    title: 'loading',
-    subtitle: 'loading',
+  static defaultProps = {
+    id: null,
+    subtitle: null,
+    markdown: null,
     tags: [],
     related: [],
+  };
+
+  state = {
+    markdown: null,
   }
+
 
   constructor(props) {
     super(props);
-
-    this.emptyArticle = this.emptyArticle.bind(this);
+    this.fetchBody = this.fetchBody.bind(this);
   }
 
   componentDidMount() {
-    const { location } = this.props;
-    if (!location.state) { this.emptyArticle(); return; }
+    this.fetchBody();
+  }
 
-    const { id } = location.state;
-    if (!id) { this.emptyArticle(); return; }
+  componentDidUpdate() {
+    this.fetchBody();
+  }
 
-    firebase.firestore()
-      .collection('articles')
-      .doc(id)
-      .get()
-      .then(doc => doc.data())
-      .then(({ title, subtitle, tags }) => this.setState({ title, subtitle, tags }))
-      .catch(this.emptyArticle);
+  fetchBody() {
+    const { markdown } = this.state;
+    const { id } = this.props;
+
+    if (!id || markdown !== null) return;
 
     const markdownRef = firebase.storage().ref().child(id).child('body.md');
 
@@ -96,29 +102,21 @@ export default class Article extends Component {
       .then(url => fetch(url))
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
-      .catch(err => this.setState({ markdown: `Error! \`${err.code}\`\n\`\`\`${err.message}\`\`\`` }));
-  }
-
-  emptyArticle() {
-    this.setState({
-      title: '404: Article not found',
-      subtitle: '',
-      markdown: '',
-    });
+      .catch(err => this.setState({ markdown: `Error! \`${err.code}\`\n\n\`\`\`${err.message}\`\`\`` }));
   }
 
   render() {
     const {
-      markdown, tags, related, title, subtitle,
-    } = this.state;
+      title, subtitle, tags, related,
+    } = this.props;
+
+    const { markdown } = this.state;
     return (
       <ArticleLayout>
         <Title>{title}</Title>
         <Subtitle>{subtitle}</Subtitle>
         <Tags>
-          {
-          tags.map(tag => <Tag id={tag} />)
-          }
+          { tags.map(tag => <Tag id={tag} key={tag} />) }
         </Tags>
         <Body className="markdown-body"><Markdown source={markdown} escapeHtml={false} /></Body>
         <Related>

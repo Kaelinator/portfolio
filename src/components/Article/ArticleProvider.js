@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -11,6 +12,7 @@ export default class ArticleProvider extends Component {
   }
 
   state = {
+    articleRefUnsub: null,
     articles: [],
   }
 
