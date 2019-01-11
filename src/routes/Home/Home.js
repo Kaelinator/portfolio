@@ -9,8 +9,9 @@ import TagHolder from '../../components/Tag/TagHolder';
 import { ArticleContext } from '../../components/Article/ArticleProvider';
 import Results from './ArticleDisplay';
 
-const Wrapper = styled.div`
-  color: #1F1F20;
+const Footer = styled.div`
+  color: red;
+  grid-row: 2 / 3;
 `;
 
 export default class Home extends Component {
@@ -40,14 +41,14 @@ export default class Home extends Component {
   render() {
     const { search, tags } = this.state;
     return (
-      <Wrapper>
-        <HomeLayout>
-          <Banner key="banner" Search={this.SearchBar} TagHolder={this.TagHolder} />
-          <ArticleContext.Consumer key="articles">
-            { articles => <Results articles={articles} search={search} tags={tags} /> }
-          </ArticleContext.Consumer>
-        </HomeLayout>
-      </Wrapper>
+    // <Wrapper>
+      <HomeLayout footer={<Footer><h2>Find me at kirkkael@gmail.com</h2></Footer>}>
+        <Banner key="banner" Search={this.SearchBar} TagHolder={this.TagHolder} />
+        <ArticleContext.Consumer key="articles">
+          { articles => <Results articles={articles} search={search} tags={tags} /> }
+        </ArticleContext.Consumer>
+      </HomeLayout>
+    // </Wrapper>
     );
   }
 }

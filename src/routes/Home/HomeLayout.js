@@ -7,6 +7,18 @@ import {
   DesktopSmall, DesktopLarge, Tablet, Mobile,
 } from '../../components/DeviceQueries';
 
+const Wrapper = styled.div`
+  color: #1F1F20;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+`;
+
+const Content = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr;
+`;
+
 const GridLarge = styled.div`
   display: grid;
   grid-template-areas: 
@@ -49,32 +61,38 @@ const GridMobile = styled.div`
   grid-gap: 20px;
 `;
 
-const HomeLayout = ({ children }) => (
-  <>
-    <DesktopLarge>
-      <GridLarge>{children}</GridLarge>
-    </DesktopLarge>
+const HomeLayout = ({ children, footer }) => (
+  <Wrapper>
+    <Content>
+      <DesktopLarge>
+        <GridLarge>{children}</GridLarge>
+      </DesktopLarge>
 
-    <DesktopSmall>
-      <Grid>{children}</Grid>
-    </DesktopSmall>
+      <DesktopSmall>
+        <Grid>{children}</Grid>
+      </DesktopSmall>
 
-    <Tablet>
-      <GridTablet>{children}</GridTablet>
-    </Tablet>
+      <Tablet>
+        <GridTablet>{children}</GridTablet>
+      </Tablet>
 
-    <Mobile>
-      <GridMobile>{children}</GridMobile>
-    </Mobile>
-  </>
+      <Mobile>
+        <GridMobile>{children}</GridMobile>
+      </Mobile>
+    </Content>
+
+    {footer}
+  </Wrapper>
 );
 
 HomeLayout.propTypes = {
   children: PropTypes.node,
+  footer: PropTypes.node,
 };
 
 HomeLayout.defaultProps = {
   children: [],
+  footer: [],
 };
 
 export default HomeLayout;
