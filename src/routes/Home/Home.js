@@ -10,8 +10,17 @@ import { ArticleContext } from '../../components/Article/ArticleProvider';
 import Results from './ArticleDisplay';
 
 const Footer = styled.div`
-  color: red;
-  grid-row: 2 / 3;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  grid-row: -2 / -1;
+  padding: 20px;
+`;
+
+const Social = styled.a`
+  font: 1.25em arial;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 export default class Home extends Component {
@@ -41,14 +50,22 @@ export default class Home extends Component {
   render() {
     const { search, tags } = this.state;
     return (
-    // <Wrapper>
-      <HomeLayout footer={<Footer><h2>Find me at kirkkael@gmail.com</h2></Footer>}>
+      <HomeLayout footer={(
+        <Footer>
+          <Social href="mailto:kirkkael@gmail.com" target="_blank">Email</Social>
+          <Social href="https://github.com/Kaelinator" target="_blank">GitHub</Social>
+          <Social href="https://medium.com/@kaelinator" target="_blank">Medium</Social>
+          <Social href="https://www.quora.com/profile/Kael-Kirk" target="_blank">Quora</Social>
+          <Social href="https://twitter.com/Kaelinator17" target="_blank">Twitter</Social>
+          <Social href="https://www.youtube.com/kaelinatorpvp" target="_blank">YouTube</Social>
+        </Footer>
+      )}
+      >
         <Banner key="banner" Search={this.SearchBar} TagHolder={this.TagHolder} />
         <ArticleContext.Consumer key="articles">
           { articles => <Results articles={articles} search={search} tags={tags} /> }
         </ArticleContext.Consumer>
       </HomeLayout>
-    // </Wrapper>
     );
   }
 }
