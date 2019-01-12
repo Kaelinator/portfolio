@@ -45,6 +45,7 @@ export default class EditAssets extends Component {
     super(props);
 
     this.deleteAsset = this.deleteAsset.bind(this);
+    this.cancelUpload = this.cancelUpload.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
 
@@ -100,6 +101,12 @@ export default class EditAssets extends Component {
       .catch(err => console.log('Error deleting', err));
   }
 
+  cancelUpload(fileName) {
+    this.setState(({ uploadQueue }) => ({
+      uploadQueue: uploadQueue.filter(({ name }) => name !== fileName),
+    }));
+  }
+
   render() {
     const { assets, articleId } = this.props;
     const { uploading, uploadQueue } = this.state;
@@ -121,7 +128,8 @@ export default class EditAssets extends Component {
                 articleId={articleId}
                 key={name}
                 name={name}
-                onClick={() => {}}
+                onDelete={() => this.cancelUpload(name)}
+                uploadTask={uploadTask}
                 inactive
               />
             )),
