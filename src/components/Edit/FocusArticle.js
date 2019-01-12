@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 
 import { TextArea, Label } from '../Form/Form';
-import EditAsset from './EditAsset';
+import EditAssets from './EditAssets';
 
 const Heading = styled.div`
   grid-area: article;
@@ -40,7 +40,7 @@ const Body = styled.form`
   grid-template-rows: auto 1fr;
 `;
 
-const Assets = styled.ul`
+const Assets = styled.div`
   grid-area: assets;
   margin: 0;
 `;
@@ -49,10 +49,12 @@ export default class FocusArticle extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string,
+    assets: PropTypes.array,
   }
 
   static defaultProps = {
     title: '',
+    assets: [],
   };
 
   state = {
@@ -74,9 +76,7 @@ export default class FocusArticle extends Component {
 
     if (!id) return;
 
-    const assetsRef = firebase.storage().ref().child(id);
-
-    const bodyRef = assetsRef.child('body.md');
+    const bodyRef = firebase.storage().ref().child(id).child('body.md');
 
     const reader = new FileReader();
     reader.addEventListener('loadend', e => this.setState({ body: e.srcElement.result, bodyLoaded: true }));
@@ -112,8 +112,11 @@ export default class FocusArticle extends Component {
   }
 
   render() {
-    const { title } = this.props;
-    const { body, bodyLoaded, bodySaved } = this.state;
+    const { title, assets, id } = this.props;
+    const {
+      body, bodyLoaded, bodySaved,
+    } = this.state;
+    console.log('assets', assets);
     return (
       <>
         <Heading>
@@ -128,7 +131,7 @@ export default class FocusArticle extends Component {
 
         <Assets>
           <Subtitle>Assets</Subtitle>
-          <EditAsset />
+          <EditAssets assets={assets} articleId={id} />
         </Assets>
       </>
     );

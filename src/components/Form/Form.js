@@ -97,6 +97,15 @@ export const Option = styled.option`
   }
 `;
 
+export const File = styled.div`
+  border: 5px dashed ${({ active }) => (active ? '#6af0ff' : '#efefef')};
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.4);
+  padding: 5px;
+  margin: 5px;
+`;
+
 export const Label = styled.label`
   margin: 5px;
   font-family: inherit;

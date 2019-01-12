@@ -78,7 +78,6 @@ export default class ArticleForm extends Component {
     const {
       url, title, subtitle, tags, visible,
     } = this.state;
-    console.log(this.state);
     return (
       <Form onSubmit={e => e.preventDefault()}>
         <Header>Edit Article</Header>

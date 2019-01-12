@@ -8,7 +8,6 @@ import TagForm from '../components/Tag/TagForm';
 import EditTag from '../components/Edit/EditTag';
 import EditArticle from '../components/Edit/EditArticle';
 import ArticleForm from '../components/Article/ArticleForm';
-import AssetForm from '../components/Article/AssetForm';
 
 storiesOf('Edit', module)
   .add('edit layout', () => <Edit />)
@@ -17,5 +16,4 @@ storiesOf('Edit', module)
 
 storiesOf('TagForm', module)
   .add('article form', () => <ArticleForm />)
-  .add('asset form', () => <AssetForm />)
   .add('tag form', () => <TagForm />);
