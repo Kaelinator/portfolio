@@ -68,13 +68,21 @@ export default class FocusArticle extends Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.loadArticle = this.loadArticle.bind(this);
+  }
+
+  componentDidMount() {
+    this.loadArticle();
   }
 
 
-  componentDidMount() {
-    const { id } = this.props;
+  componentDidUpdate() {
+    const { bodyLoaded } = this.state;
+    if (!bodyLoaded) this.loadArticle();
+  }
 
-    if (!id) return;
+  loadArticle() {
+    const { id } = this.props;
 
     const bodyRef = firebase.storage().ref().child(id).child('body.md');
 
@@ -85,10 +93,10 @@ export default class FocusArticle extends Component {
       .then(url => fetch(url))
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
-      .catch(({ code }) => (
+      .catch(({ message, code }) => (
         (code === 'storage/object-not-found'
           ? this.setState({ body: '', bodyLoaded: true })
-          : console.log(code))
+          : this.setState({ body: `${code}\n\n${message}` }))
       ));
   }
 
@@ -116,7 +124,6 @@ export default class FocusArticle extends Component {
     const {
       body, bodyLoaded, bodySaved,
     } = this.state;
-    console.log('assets', assets);
     return (
       <>
         <Heading>

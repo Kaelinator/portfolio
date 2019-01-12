@@ -64,11 +64,15 @@ export default class EditAssets extends Component {
       ...acceptedFiles.map((file) => {
         const uploadTask = storageRef.child(file.name).put(file);
 
-        uploadTask.then(({ metadata }) => {
+        uploadTask.then(() => {
           console.log('uploaded');
           article.update({
-            assets: firebase.firestore.FieldValue.arrayUnion(metadata.name),
+            assets: firebase.firestore.FieldValue.arrayUnion(file.name),
           });
+
+          this.setState(({ uploadQueue: queue }) => ({
+            uploadQueue: queue.filter(({ name }) => name !== file.name),
+          }));
         });
 
         return { name: file.name, uploadTask };

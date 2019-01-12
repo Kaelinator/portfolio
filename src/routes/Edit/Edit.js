@@ -10,7 +10,7 @@ import FocusArticle from '../../components/Edit/FocusArticle';
 
 export default class Edit extends Component {
   state ={
-    focus: null,
+    focusId: null,
   }
 
   constructor(props) {
@@ -18,12 +18,12 @@ export default class Edit extends Component {
     this.setFocusArticle = this.setFocusArticle.bind(this);
   }
 
-  setFocusArticle(article) {
-    this.setState({ focus: article });
+  setFocusArticle({ id }) {
+    this.setState({ focusId: id });
   }
 
   render() {
-    const { focus } = this.state;
+    const { focusId } = this.state;
     return (
       <EditLayout>
         <SignOut />
@@ -36,7 +36,14 @@ export default class Edit extends Component {
           { articles => <EditArticle articles={articles} onArticleFocus={this.setFocusArticle} /> }
         </ArticleContext.Consumer>
 
-        { focus && <FocusArticle {...focus} />}
+
+        <ArticleContext.Consumer>
+          { (articles) => {
+            const article = (articles.filter(({ id }) => focusId === id))[0];
+            if (!article) return null;
+            return <FocusArticle key={focusId} {...article} />;
+          }}
+        </ArticleContext.Consumer>
       </EditLayout>
     );
   }

@@ -9,8 +9,8 @@ import { Submit } from '../Form/Form';
 
 const Wrapper = styled.li`
   list-style: none;
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   padding: 10px 0 10px 0;
   border-radius: 4px;
   margin: 5px;
@@ -21,6 +21,7 @@ const Wrapper = styled.li`
 
 const Name = styled.h3`
   font: 1em arial;
+  text-overflow: ellipsis;
 `;
 
 export default class AssetItem extends Component {
