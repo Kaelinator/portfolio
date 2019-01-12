@@ -51,7 +51,7 @@ export default class Banner extends Component {
           <NameMedium>Kael Kirk</NameMedium>
         </Tablet>
         <Mobile>
-          <NameSmall>Kael</NameSmall>
+          <NameSmall>Kael Kirk</NameSmall>
         </Mobile>
         <div style={{ gridArea: 'tags' }}>
           <TagHolder />
