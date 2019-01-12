@@ -10,7 +10,7 @@ import { Submit } from '../Form/Form';
 const Wrapper = styled.li`
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   padding: 10px 0 10px 0;
   border-radius: 4px;
   margin: 5px;
@@ -21,12 +21,14 @@ const Wrapper = styled.li`
 
 const Name = styled.h3`
   font: 1em arial;
+  overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export default class AssetItem extends Component {
   static propTypes = {
-    onClick: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
     articleId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     inactive: PropTypes.bool,
@@ -65,12 +67,12 @@ export default class AssetItem extends Component {
   }
 
   render() {
-    const { onClick, name, inactive } = this.props;
+    const { onDelete, name, inactive } = this.props;
     return (
       <Wrapper inactive={inactive}>
         <Name>{name}</Name>
         <Submit type="submit" className="info" value="Copy url" onClick={this.copyUrl} />
-        <Submit type="submit" className="danger" value="Delete" onClick={onClick} />
+        <Submit type="submit" className="danger" value="Delete" onClick={onDelete} />
       </Wrapper>
     );
   }

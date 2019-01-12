@@ -12,7 +12,7 @@ const WrapperLarge = styled.div`
   grid-template-areas:
     'status status   article article'
     'tags   articles body    assets ';
-  grid-template-columns: 1fr 3fr 2fr 2fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 2fr) minmax(0, 2fr);
   grid-template-rows: auto 1fr;
 `;
 

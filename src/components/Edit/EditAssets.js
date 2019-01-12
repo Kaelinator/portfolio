@@ -112,7 +112,7 @@ export default class EditAssets extends Component {
                 articleId={articleId}
                 key={assetName}
                 name={assetName}
-                onClick={() => this.deleteAsset(assetName)}
+                onDelete={() => this.deleteAsset(assetName)}
               />
             )),
 

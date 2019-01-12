@@ -9,9 +9,8 @@ const Wrapper = styled.li`
   border-radius: 4px;
   margin: 5px;
   box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.25);
-  display: flex;
-  justify-content: space-between;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   background-color: ${props => (props.visible ? 'white' : 'grey')}
   color: #1F1F20;
 `;
@@ -25,6 +24,9 @@ const Title = styled.h3`
   font-family: arial;
   font-size: 2em;
   margin: 0 5px 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Small = styled.h5`
@@ -32,6 +34,7 @@ const Small = styled.h5`
   font-size: 1em;
   font-family: arial;
   color: #3A3A3A;
+  white-space: nowrap;
 `;
 
 const Control = styled.div`
