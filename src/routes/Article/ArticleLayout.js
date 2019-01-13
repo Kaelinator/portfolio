@@ -14,6 +14,7 @@ const WrapperLarge = styled.div`
     'left text right'
     'left foot right';
   grid-template-columns: 3fr 5fr 3fr;
+  padding-bottom: 100px;
 `;
 
 const WrapperMedium = styled.div`
@@ -26,6 +27,7 @@ const WrapperMedium = styled.div`
     'left foot right';
   grid-template-columns: 3fr 10fr 3fr;
   padding: 10px;
+  padding-bottom: 100px;
 `;
 
 const FillWrapper = styled.div`
@@ -37,6 +39,7 @@ const FillWrapper = styled.div`
     'text'
     'foot';
   padding: 10px;
+  padding-bottom: 100px;
 `;
 
 const ArticleLayout = (props) => {

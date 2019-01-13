@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -65,12 +66,12 @@ const Button = styled.button`
 `;
 
 const ArticleItem = ({
-  url, title, onEdit, onWrite, visible,
-}) => (
+  url, title, onEdit, onWrite, visible, ...rest
+}) => console.log(rest) || (
   <Wrapper visible={visible}>
     <Heading>
       <Title>{title}</Title>
-      <Small>{`/${url}`}</Small>
+      <Small><Link to={url}>{`/${url}`}</Link></Small>
     </Heading>
 
     <Control>
@@ -81,6 +82,7 @@ const ArticleItem = ({
 );
 
 ArticleItem.propTypes = {
+  history: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onWrite: PropTypes.func.isRequired,
   url: PropTypes.string.isRequired,
