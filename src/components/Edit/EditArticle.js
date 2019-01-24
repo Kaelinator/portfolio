@@ -68,7 +68,7 @@ export default class EditArticle extends Component {
         .catch(err => console.log('Error deleting article', err));
     }
 
-    return articleRef.set(article)
+    return articleRef.set(article, { merge: true })
       .then(() => this.toggleModal())
       .catch(err => console.log('Error updating article', err));
   }

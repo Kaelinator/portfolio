@@ -49,6 +49,12 @@ class TagHolder extends Component {
     this.onStatusChange = this.onStatusChange.bind(this);
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const { tags } = props;
+    const statuses = Array(tags.length).fill(true);
+    return { statuses };
+  }
+
   onStatusChange(tagIndex) {
     return () => {
       const { onStatusChange, tags } = this.props;
