@@ -92,10 +92,10 @@ export default class Search extends Component {
     const { expanded, value } = this.state;
     return (
       <Layout pose={expanded ? 'expanded' : 'contracted'}>
-        <SearchIcon onClick={this.toggleExpanded}>
+        <SearchIcon onClick={this.toggleExpanded} aria-label="search">
           <MagnifyingGlass color="#1F1F20" />
         </SearchIcon>
-        <Bar type="text" placeholder="Search" onChange={this.handleChange} value={value} />
+        <Bar type="text" placeholder="Search" aria-label="search bar" onChange={this.handleChange} value={value} />
       </Layout>
     );
   }
