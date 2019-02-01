@@ -5,7 +5,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCbxy9RWIUIUckXpRPea0zwlg1drezBtHs',
@@ -22,4 +22,4 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-// registerServiceWorker();
+registerServiceWorker();
