@@ -9,7 +9,7 @@ import TagHolder from '../../components/Tag/TagHolder';
 import { ArticleContext } from '../../components/Article/ArticleProvider';
 import Results from './ArticleDisplay';
 
-const Footer = styled.div`
+const Footer = styled.footer`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
