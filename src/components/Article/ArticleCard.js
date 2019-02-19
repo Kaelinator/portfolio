@@ -48,7 +48,7 @@ const Subtitle = styled.p`
 
 const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
   .slice(0, colors.length)
-  .map((direction, i) => `linear-gradient(${direction}, ${colors[i]}, rgba(0, 0, 0, 0))`)
+  .map((direction, i) => `linear-gradient(${direction}, ${colors[i]}, rgba(0, 0, 0, 0) 60%)`)
   .join(',');
 
 const ArticleCard = ({
