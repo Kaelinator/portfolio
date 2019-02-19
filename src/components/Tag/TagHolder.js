@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Tag from './Tag';
 import { TagContext } from './TagProvider';
 
-const Horizontal = styled.div`
+const Horizontal = styled.nav`
   display: flex;
   justify-content: space-between;
   margin-left: 0;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Mobile, NotMobile } from '../DeviceQueries';
 
-const Container = styled.div`
+const Container = styled.header`
   grid-area: head;
   display: grid;
   grid-gap: 20px;
@@ -17,7 +17,7 @@ const Container = styled.div`
   align-items: baseline;
 `;
 
-const Ribbon = styled.div`
+const Ribbon = styled.header`
   grid-area: head;
   grid-row-gap: 5px;
   display: grid;

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { TagContext } from '../Tag/TagProvider';
 
 
-const Wrapper = styled.div`
+const Wrapper = styled.header`
   display: grid;
   grid-template-rows: 2fr 1fr;
   width: 100%;
@@ -54,16 +54,18 @@ const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
 const ArticleCard = ({
   url, title, subtitle, tags,
 }) => (
-  <TagContext.Consumer>
-    {({ colorsOf }) => (
-      <Link to={{ pathname: `/${url}` }}>
-        <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
-          <Title>{title}</Title>
-          <Subtitle>{subtitle}</Subtitle>
-        </Wrapper>
-      </Link>
-    )}
-  </TagContext.Consumer>
+  <article>
+    <TagContext.Consumer>
+      {({ colorsOf }) => (
+        <Link to={{ pathname: `/${url}` }}>
+          <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
+            <Title>{title}</Title>
+            <Subtitle>{subtitle}</Subtitle>
+          </Wrapper>
+        </Link>
+      )}
+    </TagContext.Consumer>
+  </article>
 );
 
 ArticleCard.propTypes = {
