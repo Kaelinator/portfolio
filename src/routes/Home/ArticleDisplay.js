@@ -32,6 +32,10 @@ const match = (articles, search) => {
   });
 };
 
+const filter = (articles, tagList) => (
+  articles.filter(({ tags }) => tags.some(tag => !tagList.includes(tag)))
+);
+
 const render = articles => (
   <PoseGroup>
     {
@@ -46,12 +50,12 @@ const render = articles => (
   </PoseGroup>
 );
 
-const ArticleDisplay = ({ articles, search }) => (
+const ArticleDisplay = ({ articles, search, tags }) => (
   <>
     {
       search
-        ? <Results>{render(match(articles, search))}</Results>
-        : render(articles)
+        ? <Results>{render(filter(match(articles, search), tags))}</Results>
+        : render(filter(articles, tags))
     }
   </>
 );
@@ -59,13 +63,13 @@ const ArticleDisplay = ({ articles, search }) => (
 ArticleDisplay.propTypes = {
   articles: PropTypes.array,
   search: PropTypes.string,
-  // tags: PropTypes.array,
+  tags: PropTypes.array,
 };
 
 ArticleDisplay.defaultProps = {
   articles: [],
   search: '',
-  // tags: [],
+  tags: [],
 };
 
 export default ArticleDisplay;

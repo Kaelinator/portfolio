@@ -43,50 +43,41 @@ class TagHolder extends Component {
     const { tags } = this.props;
 
     this.state = {
-      statuses: Array(tags.length).fill(true),
+      disabledTags: Array(tags.length).fill(true),
     };
 
     this.onStatusChange = this.onStatusChange.bind(this);
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const { tags } = props;
-    const statuses = Array(tags.length).fill(true);
-    return { statuses };
-  }
-
-  onStatusChange(tagIndex) {
+  onStatusChange(tagId) {
     return () => {
-      const { onStatusChange, tags } = this.props;
-      const { statuses } = this.state;
+      const { onStatusChange } = this.props;
+      const { disabledTags } = this.state;
 
-      const updatedStatuses = [
-        ...statuses.slice(0, tagIndex),
-        !statuses[tagIndex],
-        ...statuses.slice(tagIndex + 1),
-      ];
+      const index = disabledTags.findIndex(id => id === tagId);
 
-      const activeTags = updatedStatuses
-        .filter(active => active)
-        .map((_, i) => tags[i].id);
 
-      onStatusChange(activeTags);
-      this.setState({ statuses: updatedStatuses });
+      const updatedStatuses = index === -1
+        ? disabledTags.concat(tagId)
+        : disabledTags.filter(id => id !== tagId);
+
+      onStatusChange(updatedStatuses);
+      this.setState({ disabledTags: updatedStatuses });
     };
   }
 
   render() {
     const { tags } = this.props;
-    const { statuses } = this.state;
+    const { disabledTags } = this.state;
     return (
       <Horizontal>
         {
-          tags.map(({ id }, i) => (
+          tags.map(({ id }) => (
             <Tag
               id={id}
               key={id}
-              onClick={this.onStatusChange(i)}
-              active={statuses[i]}
+              onClick={this.onStatusChange(id)}
+              active={!disabledTags.includes(id)}
               clickable
             />
           ))
