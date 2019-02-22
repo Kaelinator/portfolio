@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
+  margin: 0 10px 0 10px;
 `;
 
 const Content = styled.div`

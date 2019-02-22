@@ -8,15 +8,21 @@ import ArticleCard from '../../components/Article/ArticleCard';
 const Item = posed.div({
   enter: {
     opacity: 1,
-    transition: { duration: 150 },
+    transition: { duration: 250 },
+    delay: ({ index }) => index * 30,
   },
   exit: {
     opacity: 0,
-    transition: { duration: 150 },
+    transition: { duration: 250 },
+  },
+  flip: {
+    transition: {
+      default: { type: 'tween', ease: 'circOut' },
+    },
   },
 });
 
-const Results = styled.div`
+const List = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
@@ -41,8 +47,8 @@ const render = articles => (
     {
       articles
         .filter(({ visible }) => visible)
-        .map(article => (
-          <Item key={article.id}>
+        .map((article, i) => (
+          <Item key={article.id} index={i}>
             <ArticleCard {...article} />
           </Item>
         ))
@@ -54,7 +60,7 @@ const ArticleDisplay = ({ articles, search, tags }) => (
   <>
     {
       search
-        ? <Results>{render(filter(match(articles, search), tags))}</Results>
+        ? <List>{render(filter(match(articles, search), tags))}</List>
         : render(filter(articles, tags))
     }
   </>
