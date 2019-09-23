@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import Markdown from 'react-markdown';
+import DocumentMeta from 'react-document-meta';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -111,20 +112,29 @@ export default class Article extends Component {
     } = this.props;
 
     const { markdown } = this.state;
+
+    const meta = {
+      title,
+      description: subtitle,
+    };
+
     return (
-      <ArticleLayout>
-        <Title>{title}</Title>
-        <Subtitle>{subtitle}</Subtitle>
-        <Tags>
-          { tags.map(tag => <Tag id={tag} key={tag} />) }
-        </Tags>
-        <Body className="markdown-body"><Markdown source={markdown} escapeHtml={false} /></Body>
-        <Related>
-          {
-            related.map(({ id, ...article }) => <ArticleCard key={id} {...article} />)
-          }
-        </Related>
-      </ArticleLayout>
+      <DocumentMeta {...meta}>
+        <ArticleLayout>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+          <Tags>
+            { tags.map(tag => <Tag id={tag} key={tag} />) }
+          </Tags>
+          <Body className="markdown-body"><Markdown source={markdown} escapeHtml={false} /></Body>
+          <Related>
+            {
+              related.map(({ id, ...article }) => <ArticleCard key={id} {...article} />)
+            }
+          </Related>
+        </ArticleLayout>
+      </DocumentMeta>
+
     );
   }
 }

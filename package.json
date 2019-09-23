@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^5.7.2",
+    "firebase": "^6.6.2",
     "github-markdown-css": "^2.10.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
+    "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^16.7.0",
     "react-dropzone": "^8.0.3",
     "react-markdown": "^4.0.4",
