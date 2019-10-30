@@ -51,6 +51,23 @@ const Tags = styled.div`
     font-size: 0;
     margin: 0;
     flex-grow: 2;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    border-right-width: 0;
+    border-left-width: 0;
+  }
+
+  & > button:first-child {
+    border-top-left-radius: 5px;
+    border-left-width: 2px;
+  }
+
+  & > button:last-child {
+    border-top-right-radius: 5px;
+    border-right-width: 2px;
   }
 `;
 
