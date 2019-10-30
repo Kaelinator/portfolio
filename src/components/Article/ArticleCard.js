@@ -7,7 +7,7 @@ import Tag from '../Tag/Tag';
 
 const Wrapper = styled.header`
   display: grid;
-  grid-template-rows: 4fr 1fr 2fr;
+  grid-template-rows: auto 1fr auto;
   width: 100%;
   height: 200px;
   border-radius: 5px;
@@ -26,9 +26,7 @@ const Title = styled.h2`
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 32px;     /* fallback */
-  max-height: 128px;      /* fallback */
-  -webkit-line-clamp: 2; /* number of lines to show */
-  -webkit-box-orient: vertical;
+  max-height: 128px;     /* fallback */
 `;
 
 const Subtitle = styled.p`
@@ -42,44 +40,38 @@ const Subtitle = styled.p`
   display: -webkit-box;
   line-height: 16px;     /* fallback */
   max-height: 48px;      /* fallback */
-  -webkit-line-clamp: 2; /* number of lines to show */
-  -webkit-box-orient: vertical;
 `;
 
 const Tags = styled.div`
-  & > button:first-child {
-    margin-left: 0;
-  }
-
-  & > button:last-child {
-    margin-right: 0;
+  overflow: hidden;
+  flex-flow: row wrap;
+  display: flex;
+  align-items: stretch;
+  & > button {
+    height: 10px;
+    width: 50px;
+    overflow: hidden;
+    font-size: 0;
+    margin: 0;
   }
 `;
+
+const wrapIfLink = (url, content) => (url === '' ? content() : <Link to={{ pathname: `/${url}` }}>{content()}</Link>);
 
 const ArticleCard = ({
   url, title, subtitle, tags,
 }) => (
   <article>
     <div>
-      {url === ''
-        ? (
-          <Wrapper>
-            <Title>{title}</Title>
-            <Subtitle>{subtitle}</Subtitle>
-          </Wrapper>
-        )
-        : (
-          <Link to={{ pathname: `/${url}` }}>
-            <Wrapper>
-              <Title>{title}</Title>
-              <Tags>
-                { tags.map(tag => <Tag id={tag} key={tag} />) }
-              </Tags>
-              <Subtitle>{subtitle}</Subtitle>
-            </Wrapper>
-          </Link>
-        )
-      }
+      {wrapIfLink(url, () => (
+        <Wrapper>
+          <Tags>
+            { tags.map(tag => <Tag id={tag} key={tag} />) }
+          </Tags>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+        </Wrapper>
+      ))}
     </div>
   </article>
 );
