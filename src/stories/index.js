@@ -24,7 +24,7 @@ storiesOf('Article', module)
     <div style={{ width: '200px' }}>
       <ArticleCard
         title="Here's my own clickbait title!"
-        subtitle="This is my clickbait subtitle to go along with my clickbait title. Here it is in all of its glory."
+        subtitle="This is my clickbait subtitle to go along with my clickbait title. Here it is in all of its glory. It may have ran out of room, but that's alright. The points of this is to see what happens."
         tags={Array(11).fill(null).map(() => `${Math.random()}`)}
       />
     </div>

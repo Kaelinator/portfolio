@@ -7,7 +7,6 @@ import Tag from '../Tag/Tag';
 
 const Wrapper = styled.header`
   display: grid;
-  grid-template-rows: auto 1fr auto;
   width: 100%;
   height: 200px;
   border-radius: 5px;
@@ -17,6 +16,7 @@ const Wrapper = styled.header`
 `;
 
 const Title = styled.h2`
+  align-self: start;
   font: 2em 'Open Sans', sans-serif;
   padding: 0 5px 0 5px;
   margin: 0;
@@ -33,26 +33,24 @@ const Subtitle = styled.p`
   font: 1em 'Open Sans', sans-serif;
   padding: 0 5px 0 5px;
   margin: 0;
-  overflow: hidden;
-  word-break: break-all;
   hyphens: auto;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 16px;     /* fallback */
-  max-height: 48px;      /* fallback */
+  overflow: hidden;
 `;
 
 const Tags = styled.div`
   overflow: hidden;
   flex-flow: row wrap;
   display: flex;
-  align-items: stretch;
+  justify-content: space-evenly;
+  height: 10px;
+
   & > button {
+    width: auto;
     height: 10px;
-    width: 50px;
     overflow: hidden;
     font-size: 0;
     margin: 0;
+    flex-grow: 2;
   }
 `;
 
