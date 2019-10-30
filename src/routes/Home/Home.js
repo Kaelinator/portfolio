@@ -55,7 +55,6 @@ export default class Home extends Component {
           <Social href="mailto:kirkkael@gmail.com" target="_blank" rel="noopener">Email</Social>
           <Social href="https://github.com/Kaelinator" target="_blank" rel="noopener">GitHub</Social>
           <Social href="https://medium.com/@kaelinator" target="_blank" rel="noopener">Medium</Social>
-          <Social href="https://www.quora.com/profile/Kael-Kirk" target="_blank" rel="noopener">Quora</Social>
           <Social href="https://twitter.com/Kaelinator17" target="_blank" rel="noopener">Twitter</Social>
           <Social href="https://www.youtube.com/kaelinatorpvp" target="_blank" rel="noopener">YouTube</Social>
         </Footer>

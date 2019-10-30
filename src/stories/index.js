@@ -8,6 +8,7 @@ import TagForm from '../components/Tag/TagForm';
 import EditTag from '../components/Edit/EditTag';
 import EditArticle from '../components/Edit/EditArticle';
 import ArticleForm from '../components/Article/ArticleForm';
+import ArticleCard from '../components/Article/ArticleCard';
 
 storiesOf('Edit', module)
   .add('edit layout', () => <Edit />)
@@ -15,5 +16,16 @@ storiesOf('Edit', module)
   .add('tag edit', () => <EditTag tags={Array(10).fill('')} />);
 
 storiesOf('TagForm', module)
-  .add('article form', () => <ArticleForm />)
   .add('tag form', () => <TagForm />);
+
+storiesOf('Article', module)
+  .add('article form', () => <ArticleForm />)
+  .add('article card', () => (
+    <div style={{ width: '200px' }}>
+      <ArticleCard
+        title="Here's my clickbait title!"
+        subtitle="This is my clickbait subtitle to go along with my clickbait title."
+        tags={['1WIKjXFZqdYXAdm70wu6', '9Pebq21pOQYSQekgEimV']}
+      />
+    </div>
+  ));

@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { TagContext } from '../Tag/TagProvider';
+import Tag from '../Tag/Tag';
 
 
 const Wrapper = styled.header`
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 4fr 1fr 2fr;
   width: 100%;
   height: 200px;
   border-radius: 5px;
@@ -46,25 +46,41 @@ const Subtitle = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-const getBackground = colors => ['45deg', '135deg', '225deg', '315deg']
-  .slice(0, colors.length)
-  .map((direction, i) => `linear-gradient(${direction}, ${colors[i]}, rgba(0, 0, 0, 0) 60%)`)
-  .join(',');
+const Tags = styled.div`
+  & > button:first-child {
+    margin-left: 0;
+  }
+
+  & > button:last-child {
+    margin-right: 0;
+  }
+`;
 
 const ArticleCard = ({
   url, title, subtitle, tags,
 }) => (
   <article>
-    <TagContext.Consumer>
-      {({ colorsOf }) => (
-        <Link to={{ pathname: `/${url}` }}>
-          <Wrapper style={{ background: getBackground(colorsOf(tags)) }}>
+    <div>
+      {url === ''
+        ? (
+          <Wrapper>
             <Title>{title}</Title>
             <Subtitle>{subtitle}</Subtitle>
           </Wrapper>
-        </Link>
-      )}
-    </TagContext.Consumer>
+        )
+        : (
+          <Link to={{ pathname: `/${url}` }}>
+            <Wrapper>
+              <Title>{title}</Title>
+              <Tags>
+                { tags.map(tag => <Tag id={tag} key={tag} />) }
+              </Tags>
+              <Subtitle>{subtitle}</Subtitle>
+            </Wrapper>
+          </Link>
+        )
+      }
+    </div>
   </article>
 );
 
@@ -76,7 +92,7 @@ ArticleCard.propTypes = {
 };
 
 ArticleCard.defaultProps = {
-  url: 'not-found',
+  url: '',
   title: '',
   subtitle: '',
   tags: [],
