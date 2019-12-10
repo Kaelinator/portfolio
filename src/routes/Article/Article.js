@@ -27,9 +27,10 @@ const Swipable = posed.div({
   },
 });
 
-const SwipeTooltip = posed.div({
-
-});
+const SwipeTooltip = styled.p`
+  text-align: center;
+  font-family: sans-serif;
+`;
 
 const Title = styled.h1`
   font-size: 3em;
@@ -150,7 +151,6 @@ export default class Article extends Component {
 
     return (
       <DocumentMeta {...meta}>
-        <SwipeTooltip />
         <Swipable onDragEnd={this.handleSwipe}>
           <ArticleLayout>
             <Title>{title}</Title>
@@ -166,6 +166,9 @@ export default class Article extends Component {
             </Related>
           </ArticleLayout>
         </Swipable>
+        {
+          (markdown !== null) && <SwipeTooltip>Swipe to return home</SwipeTooltip>
+        }
       </DocumentMeta>
     );
   }
