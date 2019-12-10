@@ -34,7 +34,7 @@ const SwipeTooltip = styled.p`
 
 const Title = styled.h1`
   font-size: 3em;
-  font-family: 'Times New Roman', Times;
+  font-family: sans-serif;
   margin-bottom: 0;
   overflow-wrap: break-word;
   width: 100%;
@@ -48,6 +48,7 @@ const Body = styled.div`
 `;
 
 const Subtitle = styled.h2`
+  font-family: sans-serif;
   grid-area: subt;
   margin-top: 0;
 `;
