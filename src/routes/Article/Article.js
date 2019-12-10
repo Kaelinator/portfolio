@@ -17,11 +17,18 @@ import Tag from '../../components/Tag/Tag';
 
 const Swipable = posed.div({
   draggable: 'x',
+  passive: {
+    opacity: ['x', v => 1 - Math.abs(1.5 * v) / window.innerWidth],
+  },
   dragEnd: {
     x: 0,
     y: 0,
     transition: { type: 'spring' },
   },
+});
+
+const SwipeTooltip = posed.div({
+
 });
 
 const Title = styled.h1`
@@ -143,7 +150,7 @@ export default class Article extends Component {
 
     return (
       <DocumentMeta {...meta}>
-
+        <SwipeTooltip />
         <Swipable onDragEnd={this.handleSwipe}>
           <ArticleLayout>
             <Title>{title}</Title>
