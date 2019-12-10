@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Markdown from 'react-markdown';
 import DocumentMeta from 'react-document-meta';
-import posed from 'react-pose';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -14,18 +12,6 @@ import 'firebase/storage';
 import ArticleLayout from './ArticleLayout';
 import ArticleCard from '../../components/Article/ArticleCard';
 import Tag from '../../components/Tag/Tag';
-
-const Swipable = posed.div({
-  draggable: 'x',
-  passive: {
-    opacity: ['x', v => 1 - Math.abs(1.5 * v) / window.innerWidth],
-  },
-  dragEnd: {
-    x: 0,
-    y: 0,
-    transition: { type: 'spring' },
-  },
-});
 
 const SwipeTooltip = styled.p`
   text-align: center;
@@ -99,7 +85,6 @@ export default class Article extends Component {
   constructor(props) {
     super(props);
     this.fetchBody = this.fetchBody.bind(this);
-    this.handleSwipe = this.handleSwipe.bind(this);
   }
 
   componentDidMount() {
@@ -108,14 +93,6 @@ export default class Article extends Component {
 
   componentDidUpdate() {
     this.fetchBody();
-  }
-
-  handleSwipe({ clientX, layerX }) {
-    if (Math.abs(clientX - layerX) > (window.innerWidth / 3)) {
-      this.setState(() => ({
-        exitted: true,
-      }));
-    }
   }
 
   fetchBody() {
@@ -141,32 +118,28 @@ export default class Article extends Component {
       title, subtitle, tags, related,
     } = this.props;
 
-    const { markdown, exitted } = this.state;
+    const { markdown } = this.state;
 
     const meta = {
       title,
       description: subtitle,
     };
 
-    if (exitted) return <Redirect to="/" />;
-
     return (
       <DocumentMeta {...meta}>
-        <Swipable onDragEnd={this.handleSwipe}>
-          <ArticleLayout>
-            <Title>{title}</Title>
-            <Subtitle>{subtitle}</Subtitle>
-            <Tags>
-              {tags.map(tag => <Tag id={tag} key={tag} />)}
-            </Tags>
-            <Body className="markdown-body"><Markdown source={markdown} escapeHtml={false} /></Body>
-            <Related>
-              {
+        <ArticleLayout>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+          <Tags>
+            {tags.map(tag => <Tag id={tag} key={tag} />)}
+          </Tags>
+          <Body className="markdown-body"><Markdown source={markdown} escapeHtml={false} /></Body>
+          <Related>
+            {
                 related.map(({ id, ...article }) => <ArticleCard key={id} {...article} />)
               }
-            </Related>
-          </ArticleLayout>
-        </Swipable>
+          </Related>
+        </ArticleLayout>
         {
           (markdown !== null) && <SwipeTooltip>Swipe to return home</SwipeTooltip>
         }
