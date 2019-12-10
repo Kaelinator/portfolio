@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import posed from 'react-pose';
 
 import styled from 'styled-components';
@@ -56,6 +56,22 @@ const FillWrapper = styled.div`
   padding-bottom: 100px;
 `;
 
+const BackButton = styled.div`
+  position: fixed;
+  bottom: 5vw;
+  right: 5vw;
+  width: 20vw;
+  height: 20vw;
+  background-color: white;
+  box-shadow: 0px 2px 14px -6px rgba(0,0,0,0.75);
+  border-radius: 50%;
+  font-family: sans-serif;
+  font-size: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default class ArticleLayout extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -63,11 +79,24 @@ export default class ArticleLayout extends Component {
 
   state = {
     exitted: false,
+    oldScroll: 0,
+    scrolledUp: false,
   }
 
   constructor(props) {
     super(props);
     this.handleSwipe = this.handleSwipe.bind(this);
+    window.onscroll = this.handleScroll.bind(this);
+  }
+
+  handleScroll() {
+    const { oldScroll } = this.state;
+    const newScroll = document.documentElement.scrollTop;
+
+    this.setState(() => ({
+      oldScroll: newScroll,
+      scrolledUp: oldScroll < newScroll,
+    }));
   }
 
   handleSwipe({ clientX, layerX }) {
@@ -80,7 +109,7 @@ export default class ArticleLayout extends Component {
 
   render() {
     const { children } = this.props;
-    const { exitted } = this.state;
+    const { exitted, scrolledUp } = this.state;
 
     if (exitted) return <Redirect to="/" />;
 
@@ -93,9 +122,11 @@ export default class ArticleLayout extends Component {
         </Desktop>
         <Tablet>
           <WrapperMedium>{children}</WrapperMedium>
+          {!scrolledUp && <Link to="/"><BackButton>Home</BackButton></Link>}
         </Tablet>
         <Mobile>
           <FillWrapper>{children}</FillWrapper>
+          {!scrolledUp && <Link to="/"><BackButton>Home</BackButton></Link>}
         </Mobile>
       </>
     );
