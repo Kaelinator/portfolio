@@ -5,18 +5,13 @@ import styled from 'styled-components';
 import Markdown from 'react-markdown';
 import DocumentMeta from 'react-document-meta';
 
-import firebase from 'firebase/app';
+// import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
-import 'firebase/storage';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 import ArticleLayout from './ArticleLayout';
 import ArticleCard from '../../components/Article/ArticleCard';
 import Tag from '../../components/Tag/Tag';
-
-const SwipeTooltip = styled.p`
-  text-align: center;
-  font-family: sans-serif;
-`;
 
 const Title = styled.h1`
   font-size: 3em;
@@ -101,12 +96,14 @@ export default class Article extends Component {
 
     if (!id || markdown !== null) return;
 
-    const markdownRef = firebase.storage().ref().child(id).child('body.md');
+    // const markdownRef = firebase.storage().ref().child(id).child('body.md');
+    const storage = getStorage();
+    const markdownRef = ref(storage, `${id}/body.md`);
 
     const reader = new FileReader();
     reader.addEventListener('loadend', e => this.setState({ markdown: e.srcElement.result }));
 
-    markdownRef.getDownloadURL()
+    getDownloadURL(markdownRef)
       .then(url => fetch(url))
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
@@ -140,9 +137,6 @@ export default class Article extends Component {
               }
           </Related>
         </ArticleLayout>
-        {
-          (markdown !== null) && <SwipeTooltip>Swipe to return home</SwipeTooltip>
-        }
       </DocumentMeta>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
 
 const getDataFrom = tags => id => tags.find(e => e.id === id) || {};

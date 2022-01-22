@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
 
 export const ArticleContext = React.createContext([]);
@@ -18,7 +18,6 @@ export default class ArticleProvider extends Component {
 
   componentDidMount() {
     const firestore = firebase.firestore();
-    firestore.settings({ timestampsInSnapshots: true });
 
     const articleRefUnsub = firestore
       .collection('articles')

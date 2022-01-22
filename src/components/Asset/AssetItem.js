@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/storage';
 
 import styled from 'styled-components';
@@ -35,8 +35,6 @@ const Name = styled.h3`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-
-const { STATE_CHANGED } = firebase.storage.TaskEvent;
 
 export default class AssetItem extends Component {
   static propTypes = {
@@ -74,7 +72,7 @@ export default class AssetItem extends Component {
     const { articleId, name, uploadTask } = this.props;
 
     if (uploadTask) {
-      const unSub = uploadTask.on(STATE_CHANGED,
+      const unSub = uploadTask.on('state_changed',
         ({ bytesTransferred, totalBytes }) => this.setState({
           bytes: bytesTransferred,
           total: totalBytes,

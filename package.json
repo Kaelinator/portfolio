@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^6.6.2",
+    "firebase": "9.6.4",
     "github-markdown-css": "^2.10.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",

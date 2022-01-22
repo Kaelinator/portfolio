@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 
 import Loading from '../../components/Loading';

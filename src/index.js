@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCbxy9RWIUIUckXpRPea0zwlg1drezBtHs',

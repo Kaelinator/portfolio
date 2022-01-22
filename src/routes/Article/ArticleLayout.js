@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
-import posed from 'react-pose';
+// import posed from 'react-pose';
 
 import styled from 'styled-components';
 
 import { Desktop, Tablet, Mobile } from '../../components/DeviceQueries';
 
+/*
 const Swipable = posed.div({
   draggable: 'x',
   passive: {
@@ -18,6 +19,7 @@ const Swipable = posed.div({
     transition: { type: 'spring' },
   },
 });
+*/
 
 const WrapperLarge = styled.div`
   display: grid;
@@ -116,9 +118,7 @@ export default class ArticleLayout extends Component {
     return (
       <>
         <Desktop>
-          <Swipable onDragEnd={this.handleSwipe}>
-            <WrapperLarge>{children}</WrapperLarge>
-          </Swipable>
+          <WrapperLarge>{children}</WrapperLarge>
         </Desktop>
         <Tablet>
           <WrapperMedium>{children}</WrapperMedium>
