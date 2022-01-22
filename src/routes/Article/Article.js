@@ -96,7 +96,6 @@ export default class Article extends Component {
 
     if (!id || markdown !== null) return;
 
-    // const markdownRef = firebase.storage().ref().child(id).child('body.md');
     const storage = getStorage();
     const markdownRef = ref(storage, `${id}/body.md`);
 

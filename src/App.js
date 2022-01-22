@@ -7,7 +7,7 @@ import { ResponsiveProvider } from './components/DeviceQueries';
 import { TagProvider } from './components/Tag/TagProvider';
 
 import Home from './routes/Home/Home';
-import Resume from './routes/Resume';
+import StaticLoader from './routes/StaticLoader';
 import Edit from './routes/Edit/Edit';
 import SignIn from './routes/SignIn';
 import PrivateRoute from './routes/Edit/PrivateRoute';
@@ -23,7 +23,8 @@ export default () => (
             <Route exact path="/" component={Home} />
             <PrivateRoute path="/edit" component={Edit} />
             <Route path="/login" component={props => <SignIn {...props} />} />
-            <Route path="/resume" component={Resume} />
+            <Route path="/resume" component={() => <StaticLoader load="Private CS Resume.pdf"/>} />
+            <Route path="/static/:load" component={StaticLoader} />
             <Route path="/:articleUrl" component={ArticleLoader} />
           </Switch>
         </BrowserRouter>
