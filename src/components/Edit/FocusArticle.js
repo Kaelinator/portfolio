@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/storage';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 
 import { TextArea, Label } from '../Form/Form';
 import EditAssets from './EditAssets';
@@ -84,12 +85,14 @@ export default class FocusArticle extends Component {
   loadArticle() {
     const { id } = this.props;
 
-    const bodyRef = firebase.storage().ref().child(id).child('body.md');
+    const storage = getStorage();
+    const bodyRef = ref(storage, `${id}/body.md`);
+    // const bodyRef = ref(storage, id).child('body.md');
 
     const reader = new FileReader();
     reader.addEventListener('loadend', e => this.setState({ body: e.srcElement.result, bodyLoaded: true }));
 
-    bodyRef.getDownloadURL()
+    getDownloadURL(bodyRef)
       .then(url => fetch(url))
       .then(res => res.blob())
       .then(blob => reader.readAsText(blob))
@@ -111,10 +114,17 @@ export default class FocusArticle extends Component {
 
     const blob = new Blob([body], { type: 'text/markdown' });
 
-    const bodyRef = firebase.storage().ref().child(id).child('body.md');
+    const storage = getStorage();
+    const bodyRef = ref(storage, `${id}/body.md`);
+    // const bodyRef = storage.child(id).child('body.md');
+    // const bodyRef = ref(storage, id).child('body.md');
 
-    const newUploadTask = bodyRef.put(blob, { contentType: 'text/markdown' });
-    newUploadTask.then(() => this.setState({ bodySaved: true }));
+    const newUploadTask = uploadBytesResumable(bodyRef, blob, { contentType: 'text/markdown' });
+    newUploadTask.then(() => this.setState({ bodySaved: true }))
+      .catch(({ message, code }) => {
+        if (code === 'storage/canceled') return;
+        this.setState({ body: `${code}\n\n${message}` });
+      });
 
     this.setState({ body, bodyUploadTask: newUploadTask, bodySaved: false });
   }

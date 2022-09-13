@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/storage';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/storage';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 import styled from 'styled-components';
 import { Submit } from '../Form/Form';
@@ -81,11 +82,12 @@ export default class AssetItem extends Component {
       this.setState({ unSub });
     }
 
-    firebase.storage()
-      .ref()
-      .child(articleId)
-      .child(name)
-      .getDownloadURL()
+    const storage = getStorage();
+    // firebase.storage()
+    //   .ref()
+    getDownloadURL(ref(storage, `${articleId}/${name}`))
+      // .child(articleId)
+      // .child(name)
       .then(url => this.setState({ url }))
       .catch(err => console.log('error loading url!', err));
   }

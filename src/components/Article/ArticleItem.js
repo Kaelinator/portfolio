@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -71,7 +71,7 @@ const ArticleItem = ({
   <Wrapper visible={visible}>
     <Heading>
       <Title>{title}</Title>
-      <Small><Link to={url}>{`/${url}`}</Link></Small>
+      <Small><a href={url} target="_blank" rel="noopener noreferrer">{`/${url}`}</a></Small>
     </Heading>
 
     <Control>
@@ -82,7 +82,7 @@ const ArticleItem = ({
 );
 
 ArticleItem.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object,
   onEdit: PropTypes.func.isRequired,
   onWrite: PropTypes.func.isRequired,
   url: PropTypes.string.isRequired,

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/auth';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import Loading from '../../components/Loading';
 
@@ -22,8 +23,11 @@ export default class PrivateRoute extends React.Component {
   }
 
   componentDidMount() {
-    const authChangeUnsub = firebase.auth()
-      .onAuthStateChanged(user => this.setState({ signedIn: !!user, loading: false }));
+    const auth = getAuth();
+    const authChangeUnsub = onAuthStateChanged(auth, user => this.setState({
+      signedIn: !!user,
+      loading: false
+    }));
 
     this.setState({ authChangeUnsub });
   }

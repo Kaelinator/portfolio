@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/auth';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { Redirect } from 'react-router-dom';
 import {
@@ -42,8 +43,8 @@ export default class SignIn extends Component {
     event.preventDefault();
     const { email, password } = this.state;
 
-    firebase.auth()
-      .signInWithEmailAndPassword(email, password)
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
       .then(() => this.setState({ authSuccess: true }))
       .catch(err => this.setState({ error: err.code }));
   }
