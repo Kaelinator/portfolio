@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/firestore';
-import 'firebase/storage';
+// import 'firebase/firestore';
+// import 'firebase/storage';
+import { getStorage, ref, uploadBytesResumable, deleteObject } from 'firebase/storage';
+import { getFirestore, doc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore';
 
 import Dropzone from 'react-dropzone';
 import AssetItem from '../Asset/AssetItem';
@@ -54,21 +55,23 @@ export default class EditAssets extends Component {
 
     const { articleId } = this.props;
 
-    const storageRef = firebase.storage().ref().child(articleId);
+    const storage = getStorage();
 
-    const article = firebase.firestore().collection('articles').doc(articleId);
+    const db = getFirestore()
+    const article = doc(db, 'articles', articleId);
 
     const { uploadQueue } = this.state;
 
     const newQueue = [
       ...uploadQueue,
       ...acceptedFiles.map((file) => {
-        const uploadTask = storageRef.child(file.name).put(file);
+        const storageRef = ref(storage, `${articleId}/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-        uploadTask.then(() => {
+        uploadTask.then(async () => {
           console.log('uploaded');
-          article.update({
-            assets: firebase.firestore.FieldValue.arrayUnion(file.name),
+          await updateDoc(article, {
+            assets: arrayUnion(file.name),
           });
 
           this.setState(({ uploadQueue: queue }) => ({
@@ -88,16 +91,18 @@ export default class EditAssets extends Component {
   deleteAsset(assetName) {
     const { articleId } = this.props;
 
-    const article = firebase.firestore().collection('articles').doc(articleId);
+    const db = getFirestore()
+    const article = doc(db, 'articles', articleId);
 
-    firebase.storage()
-      .ref()
-      .child(articleId)
-      .child(assetName)
-      .delete()
-      .then(() => article.update({
-        assets: firebase.firestore.FieldValue.arrayRemove(assetName),
-      }))
+    const storage = getStorage();
+    const storageRef = ref(storage, `${articleId}/${assetName}`);
+
+    deleteObject(storageRef)
+      .then(async () => {
+        await updateDoc(article, {
+          assets: arrayRemove(assetName),
+        })
+      })
       .catch(err => console.log('Error deleting', err));
   }
 
